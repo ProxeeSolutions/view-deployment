@@ -164,6 +164,28 @@ srv01_02 ansible_host=192.168.10.25
 #SVR01-03
 srv01_03 ansible_host=192.168.10.26
 
+[videoservers]
+#DVS06-01
+dvs06_01 ansible_host=192.168.10.178
+
+#DVS04-01
+dvs04_01 ansible_host=192.168.11.78
+
+#DVS04-02
+dvs04_02 ansible_host=192.168.11.79
+
+#DVS04-03
+dvs04_03 ansible_host=192.168.11.80
+
+#DVS04-04
+dvs04_04 ansible_host=192.168.11.81
+
+#DVS04-05
+dvs04_05 ansible_host=192.168.11.82
+
+#DVS04-06
+dvs04_06 ansible_host=192.168.11.83
+
 [test:vars]
 ansible_user=vagrant
 ansible_connection=winrm
@@ -180,8 +202,8 @@ m00_interactive
 s30_finale
 
 [stations:vars]
-ansible_user=VB
 ansible_connection=winrm
+ansible_user=VB
 ansible_password=View
 ansible_winrm_server_cert_validation=ignore
 
@@ -192,4 +214,10 @@ cms
 ansible_user=VB
 ansible_connection=winrm
 ansible_password=View
+ansible_winrm_server_cert_validation=ignore
+
+[videoservers:vars]
+ansible_connection=winrm
+ansible_user="7thSense Design Ltd"
+ansible_password="" #No password 
 ansible_winrm_server_cert_validation=ignore

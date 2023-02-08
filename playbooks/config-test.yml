@@ -1,0 +1,16 @@
+---
+# Test Playbook for file configuration
+- hosts: all
+  tasks:
+    - name: Ensure directory is present
+      ansible.windows.win_file:
+        path: '{{view_win_base_path}}'
+        state: directory
+    - name: Replace line
+      community.windows.win_lineinfile:
+        path: '{{view_win_base_path}}\example.conf'
+        regex: '^name='
+        state: present
+        backup: true
+        create: true
+        line: 'name=JohnDoe'

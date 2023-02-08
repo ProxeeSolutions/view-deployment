@@ -1,0 +1,195 @@
+[production:children]
+stations
+test
+
+
+[test]
+#vmware ansible_host=192.168.236.183
+vagrant ansible_host=192.168.236.218
+
+
+
+[d30_lobby]
+#CPU02-01
+cpu02_01 ansible_host=192.168.10.181
+
+[g20_tactile]
+#CPU02-02
+cpu02_02 ansible_host=192.168.10.182
+
+#CPU02-03
+cpu02_03 ansible_host=192.168.10.183
+
+#CPU02-04
+cpu02_04 ansible_host=192.168.10.184
+
+#CPU02-05
+cpu02_05 ansible_host=192.168.10.185
+
+[n00_poster]
+#CPU02-08
+cpu02_08 ansible_host=192.168.10.186
+
+#CPU02-09
+cpu02_09 ansible_host=192.168.10.187
+
+#CPU02-10
+cpu02_10 ansible_host=192.168.10.188
+
+#CPU02-11
+cpu02_11 ansible_host=192.168.10.189
+
+#CPU02-12
+cpu02_12 ansible_host=192.168.10.190
+
+[g11_viewers]
+#CPU05-02
+cpu05_02 ansible_host=192.168.10.191
+
+#CPU05-03
+cpu05_03 ansible_host=192.168.10.192
+
+#CPU05-04
+cpu05_04 ansible_host=192.168.10.193
+
+#CPU05-05
+cpu05_05 ansible_host=192.168.10.194
+
+#CPU05-06
+cpu05_06 ansible_host=192.168.10.195
+
+#CPU05-07
+cpu05_07 ansible_host=192.168.10.196
+
+#CPU05-08
+cpu05_08 ansible_host=192.168.10.197
+
+#CPU05-09
+cpu05_09 ansible_host=192.168.10.198
+
+#CPU05-10
+cpu05_10 ansible_host=192.168.10.199
+
+#CPU05-11
+cpu05_11 ansible_host=192.168.10.200
+
+[m00_interactive]
+#CPU05-12
+cpu05_12 ansible_host=192.168.10.201
+
+#CPU05-13
+cpu05_13 ansible_host=192.168.10.202
+
+#CPU05-14
+cpu05_14 ansible_host=192.168.10.203
+
+#CPU05-15
+cpu05_15 ansible_host=192.168.10.204
+
+#CPU05-16
+cpu05_16 ansible_host=192.168.10.205
+
+#CPU05-17
+cpu05_17 ansible_host=192.168.10.206
+
+#CPU05-18
+cpu05_18 ansible_host=192.168.10.207
+
+#CPU05-19
+cpu05_19 ansible_host=192.168.10.208
+
+#CPU05-20
+cpu05_20 ansible_host=192.168.10.209
+
+#CPU05-21
+cpu05_21 ansible_host=192.168.10.210
+
+#CPU05-22
+cpu05_22 ansible_host=192.168.10.211
+
+#CPU05-23
+cpu05_23 ansible_host=192.168.10.212
+
+#CPU05-24
+cpu05_24 ansible_host=192.168.10.213
+
+#CPU05-25
+cpu05_25 ansible_host=192.168.10.214
+
+
+[s30_finale]
+#CPU05-26
+cpu05_26 ansible_host=192.168.10.215
+
+#CPU05-27
+cpu05_27 ansible_host=192.168.10.216
+
+#CPU05-28
+cpu05_28 ansible_host=192.168.10.217
+
+#CPU05-29
+cpu05_29 ansible_host=192.168.10.218
+
+#CPU05-30
+cpu05_30 ansible_host=192.168.10.219
+
+#CPU05-31
+cpu05_31 ansible_host=192.168.10.220
+
+#CPU05-32
+cpu05_32 ansible_host=192.168.10.221
+
+#CPU05-33
+cpu05_33 ansible_host=192.168.10.222
+
+#CPU05-34
+cpu05_34 ansible_host=192.168.10.223
+
+#CPU05-35
+cpu05_37 ansible_host=192.168.10.224
+
+#CPU05-36
+cpu05_36 ansible_host=192.168.10.225
+
+#CPU05-37
+cpu05_37 ansible_host=192.168.10.226
+
+[cms]
+#SVR01-01
+srv01_01 ansible_host=192.168.10.24
+
+#SVR01-02
+srv01_02 ansible_host=192.168.10.25
+
+#SVR01-03
+srv01_03 ansible_host=192.168.10.26
+
+[test:vars]
+ansible_user=vagrant
+ansible_connection=winrm
+ansible_password=vagrant
+ansible_winrm_server_cert_validation=ignore
+windows_user=vagrant
+windows_password=vagrant
+
+[stations:children]
+d30_lobby
+n00_poster
+g11_viewers
+m00_interactive
+s30_finale
+
+[stations:vars]
+ansible_user=VB
+ansible_connection=winrm
+ansible_password=View
+ansible_winrm_server_cert_validation=ignore
+
+[servers:children]
+cms
+
+[servers:vars]
+ansible_user=VB
+ansible_connection=winrm
+ansible_password=View
+ansible_winrm_server_cert_validation=ignore

@@ -1,0 +1,4 @@
+---
+# This playbook reference all software dependencies which must be installed
+- import_playbook: 7zip.yml
+- import_playbook: nodejs.yml

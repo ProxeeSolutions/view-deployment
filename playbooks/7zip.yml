@@ -1,0 +1,8 @@
+---
+# This playbook install 7zip from Chocolatey
+- hosts: all
+  tasks:
+  - name: Ensure 7-Zip is installed through Chocolatey
+    win_chocolatey:
+      name: 7zip
+      state: present

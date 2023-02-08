@@ -1,0 +1,14 @@
+---
+# This playbook ensure the environment is setup in windows machines for remote management with ansible
+- hosts: test
+  remote_user: lopimo
+  tasks:
+  - name: set PowerShell memory allowance to 2GB
+    win_shell: set-item wsman:localhost\Shell\MaxMemoryPerShellMB 2048
+  - name: set the default shell to PowerShell
+    win_regedit:
+      path: HKLM:\SOFTWARE\OpenSSH
+      name: DefaultShell
+      data: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+      type: string
+      state: present

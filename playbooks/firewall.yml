@@ -1,0 +1,100 @@
+---
+# Playbook to deploy needed firewall rules
+- hosts: all
+  tasks:
+    - name: Enable firewall for Domain, Public and Private profiles
+      community.windows.win_firewall:
+        state: enabled
+        profiles:
+        - Domain
+        - Private
+        - Public
+      tags: enable_firewall
+    - name: Firewall rule to allow ICMP v4 echo (ping)
+      community.windows.win_firewall_rule:
+        name: ICMP Allow incoming V4 echo request
+        enabled: yes
+        state: present
+        profiles: private
+        action: allow
+        direction: in
+        protocol: icmpv4
+        icmp_type_code:
+          - '8:*'
+# cms
+# CMS : 80,443
+# Cacher Controller : 3410, 3420, 3430, 3440
+# Remote Monitor : 3510, 3520, 3530, 3540"	
+
+- hosts: cms
+  tasks:
+    - name: Firewall rule to allow web traffic on 80/TCP and 443/TCP
+      community.windows.win_firewall_rule:
+        name: HTTP/HTTPS
+        localport: 80,443
+        action: allow
+        direction: in
+        protocol: tcp
+        profiles: domain,private,public
+        state: present
+        enabled: yes
+    - name: Firewall rule to allow Cacher Controller traffic on 3410/TCP, 3420/TCP, 3430/TCP, 3440/TCP
+      community.windows.win_firewall_rule:
+        name: Cacher Controller
+        localport: 3410, 3420, 3430, 3440
+        action: allow
+        direction: in
+        protocol: tcp
+        profiles: domain,private,public
+        state: present
+        enabled: yes
+    - name: Firewall rule to allow web traffic on 3510/TCP, 3520/TCP, 3530/TCP, 3540/TCP
+      community.windows.win_firewall_rule:
+        name: Remote Monitor
+        localport: 3510, 3520, 3530, 3540
+        action: allow
+        direction: in
+        protocol: tcp
+        profiles: domain,private,public
+        state: present
+        enabled: yes
+
+
+# Tactile
+# Tactile Model Controller : 3100, 7000
+#VLC Player : 8080
+#Omron Camera : 2001
+#Request Cacher : 3200
+#OSC Emulator : 3700
+
+# Poster
+# Electron App : 1212, 5000, 7000
+# Omron Camera : 2001
+# Request Cacher : 3200
+# OSC Emulator : 3700
+
+# Virtual Viewers
+# Electron App : 1212, 5000, 7000
+# Omron Camera : 2001
+# Request Cacher : 3200
+# OSC Emulator : 3700
+
+# Interactive
+# Electron App : 1212, 5000, 7000
+# Omron Camera : 2001
+# Request Cacher : 3200
+# OSC Emulator : 3700
+
+# Finale
+# Electron App : 1212, 5000, 7000
+# Omron Camera : 2001
+# Request Cacher : 3200
+# OSC Emulator : 3700
+
+#Wall
+# Wall Controller : 8080
+# 7th Sense : 7780
+
+# Elevator
+# Elevator Controller : 8080
+# 7th Sense : 7780

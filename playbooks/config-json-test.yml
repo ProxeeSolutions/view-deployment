@@ -1,0 +1,37 @@
+---
+# Test Playbook for JSON file configuration
+# Based on ansible-jsonpatch from https://github.com/ParticleDecay/ansible-jsonpatch
+- hosts: all
+  gather_facts: false
+  vars:
+    filepath: '{{view_win_base_path}}\test.json'
+  tasks:
+    - name: Ensure directory is present
+      ansible.windows.win_file:
+        path: '{{view_win_base_path}}'
+        state: directory
+    - name: Read file
+      ansible.builtin.slurp:
+        src: "{{ filepath }}"
+      register: current_file
+    - debug:
+        var: current_file
+    - debug:
+        msg: "{{ current_file['content'] | b64decode}}"
+
+    - name: append more key/values
+      set_fact:
+        current_payload: "{{ current_file['content'] | b64decode }}"
+    - debug:
+        var: current_payload
+    - name: append more key/values
+      set_fact:
+        modified_payload: "{{ current_payload | default([]) | combine({ 'hello': 'world' }) }}"
+
+    - debug:
+        var: modified_payload
+
+    - name: write var to file
+      ansible.windows.win_copy: 
+        content: "{{ modified_payload | to_nice_json }}" 
+        dest:  "{{ filepath }}"

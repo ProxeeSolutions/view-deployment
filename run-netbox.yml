@@ -1,0 +1,5 @@
+---
+# Playbook to test running role common
+- hosts: test
+  roles:
+    - common

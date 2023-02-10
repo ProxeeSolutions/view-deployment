@@ -1,0 +1,6 @@
+---
+# Playbook for videoserver system deployement
+- hosts: 
+    - videoserver
+  roles:
+    - common

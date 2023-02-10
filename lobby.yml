@@ -1,0 +1,6 @@
+---
+# Playbook for lobby system deployement
+- hosts: 
+    - lobby
+  roles:
+    - common

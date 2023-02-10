@@ -1,0 +1,6 @@
+---
+# Playbook for viewer system deployement
+- hosts: 
+    - viewer
+  roles:
+    - common

@@ -1,5 +1,5 @@
 [production:children]
-stations
+station
 test
 
 
@@ -42,7 +42,7 @@ cpu02_11 ansible_host=192.168.10.189
 #CPU02-12
 cpu02_12 ansible_host=192.168.10.190
 
-[viewers]
+[viewer]
 #CPU05-02
 cpu05_02 ansible_host=192.168.10.191
 
@@ -161,10 +161,11 @@ srv01_01 ansible_host=192.168.10.24
 #SVR01-02
 srv01_02 ansible_host=192.168.10.25
 
+[storage]
 #SVR01-03
 srv01_03 ansible_host=192.168.10.26
 
-[videoservers]
+[videoserver]
 #DVS06-01
 dvs06_01 ansible_host=192.168.10.178
 
@@ -194,24 +195,25 @@ ansible_winrm_server_cert_validation=ignore
 windows_user=vagrant
 windows_password=vagrant
 
-[stations:children]
+[station:children]
 lobby
 tactile
 poster
-viewers
+viewer
 interactive
 finale
 
-[stations:vars]
+[station:vars]
 ansible_connection=winrm
 ansible_user=VB
 ansible_password=View
 ansible_winrm_server_cert_validation=ignore
 
-[servers:children]
+[server:children]
 cms
+storage
 
-[servers:vars]
+[server:vars]
 ansible_user=VB
 ansible_connection=winrm
 ansible_password=View

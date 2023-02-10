@@ -1,0 +1,6 @@
+---
+# Playbook for finale system deployement
+- hosts: 
+    - finale
+  roles:
+    - common

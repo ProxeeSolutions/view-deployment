@@ -1,0 +1,6 @@
+---
+# Task to install ZeroTier Windows Client
+- name: Install Zerotier from Chocolatey
+  win_chocolatey:
+    name: zerotier-one
+    state: present

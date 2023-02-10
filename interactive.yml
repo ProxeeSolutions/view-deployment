@@ -1,0 +1,6 @@
+---
+# Playbook for interactive system deployement
+- hosts: 
+    - interactive
+  roles:
+    - common

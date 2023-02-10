@@ -1,0 +1,6 @@
+---
+# Playbook for tactile system deployement
+- hosts: 
+    - tactile
+  roles:
+    - common

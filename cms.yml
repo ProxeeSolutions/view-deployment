@@ -1,0 +1,7 @@
+---
+# Playbook for cms server system deployement
+- hosts: 
+    - cms
+  roles:
+    - common
+    - zerotier

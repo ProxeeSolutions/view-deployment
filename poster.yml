@@ -1,0 +1,6 @@
+---
+# Playbook for poster system deployement
+- hosts: 
+    - poster
+  roles:
+    - common

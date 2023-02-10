@@ -1,0 +1,10 @@
+---
+# Playbook for storage server system deployement
+- hosts: 
+    - storage
+    - test
+  roles:
+    - common
+    - zerotier
+    - cacher_controller
+    - remote_monitor

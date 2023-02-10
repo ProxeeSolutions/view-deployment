@@ -1,0 +1,13 @@
+- name: Ensure that an IP inside 192.168.1.0/24 is attached to GigabitEthernet1
+  debug:
+    msg: "{{ netbox_api_token }}"
+  # netbox.netbox.netbox_ip_address:
+  #   netbox_url: http://netbox.local
+  #   netbox_token: netbox_api_token
+  #   data:
+  #     prefix: 192.168.1.0/24
+  #     vrf: ViewBoston
+  #     interface:
+  #       name: GigabitEthernet0
+  #       device: test100
+  #   state: present

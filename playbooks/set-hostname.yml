@@ -1,0 +1,15 @@
+---
+# Playbook to set Windows hostname to the value of the hoist alis in the inventory file
+- hosts: all
+  tasks:
+  - name: Change the hostname to inventory host alias
+    ansible.windows.win_hostname:
+      name: "{{ inventory_hostname_short  | replace('_','-')}}"
+    register: res
+
+  - debug:
+      msg: "inventory hostname: {{ inventory_hostname_short  | replace('_','-')}}"
+
+  - name: Reboot
+    ansible.windows.win_reboot:
+    when: res.reboot_required

@@ -219,7 +219,7 @@ ansible_connection=winrm
 ansible_password=View
 ansible_winrm_server_cert_validation=ignore
 
-[videoservers:vars]
+[videoserver:vars]
 ansible_connection=winrm
 ansible_user="7thSense Design Ltd"
 ansible_password="" #No password 

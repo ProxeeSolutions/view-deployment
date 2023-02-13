@@ -1,0 +1,7 @@
+---
+# This playbook install python from Chocolatey
+- name: Ensure python is installed through Chocolatey
+  win_chocolatey:
+    name: python3
+    version: '3.11.0'
+    state: present

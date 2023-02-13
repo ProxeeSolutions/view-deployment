@@ -1,0 +1,71 @@
+# Copy config to C:\Users\VB\AppData\Local\Programs\viewboston\.env
+- name: Stop ViewBoston Process
+  win_shell:  Stop-Process -Name "ViewBoston"
+  ignore_errors: true
+  tags:
+    - configuration
+    - electron
+
+# - debug:
+#     var: interactive_var_vals
+#   tags:
+#     - configuration
+#     - electron
+
+- name: Ensure the directory ViewBoston is present
+  ansible.windows.win_file:
+    path: C:\Users\VB\AppData\Local\Programs\viewboston\
+    state: directory
+  tags:
+    - configuration
+    - electron
+    
+- name: Copy base config file
+  win_copy:
+    remote_src: true
+    src: \\192.168.10.26\ViewBoston\Electron\_config\.env
+    dest: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  tags:
+    - configuration
+    - electron
+
+- name: modify route configuration
+  community.windows.win_lineinfile:
+    path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+    regex: '^ROUTE='
+    state: present
+    backup: true
+    create: true
+    line: 'ROUTE=/discover-boston'
+  tags:
+    - configuration
+    - electron
+
+# - debug:
+#     var: interactive_var_vals.DISCOVER_BOSTON_APP_SOURCE[inventory_hostname]
+#   tags:
+#     - configuration
+#     - electron
+
+
+- name: modify configuration per hosts
+  community.windows.win_lineinfile:
+    path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+    regex: '^DISCOVER_BOSTON_APP_SOURCE='
+    state: present
+    backup: true
+    create: true
+    line: "DISCOVER_BOSTON_APP_SOURCE={{ interactive_var_vals.DISCOVER_BOSTON_APP_SOURCE[inventory_hostname] }}"
+  register: lineresult
+  tags:
+    - configuration
+    - electron
+
+- debug:
+    var: lineresult

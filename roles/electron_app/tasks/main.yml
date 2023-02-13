@@ -1,2 +1,11 @@
 ---
 # Playbook to setup electron app
+- name: Import subtasks task
+  include_tasks: "{{ item }}"
+  loop:
+    - install-electron.yml
+    - config-electron.yml
+    - firewall-electron.yml
+  tags:
+    - electron
+    - configuration

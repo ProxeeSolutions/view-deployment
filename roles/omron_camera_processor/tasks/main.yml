@@ -1,2 +1,6 @@
 ---
 # Playbook to setup omron camera processor
+- name: Import subtasks task
+  include_tasks: "{{ item }}"
+  loop:
+    - firewall-omron.yml

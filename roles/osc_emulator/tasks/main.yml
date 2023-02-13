@@ -1,2 +1,6 @@
 ---
 # Playbook to setup osc emulator
+- name: Import subtasks task
+  include_tasks: "{{ item }}"
+  loop:
+    - firewall-osc-emulator.yml

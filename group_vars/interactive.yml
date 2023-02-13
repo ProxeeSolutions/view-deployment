@@ -1,0 +1,28 @@
+---
+# Variables for the 'interactive' group
+# Usage vars:
+#    my_var: "{{ my_var_vals[inventory_hostname] }}"
+
+interactive_var_vals:
+  DISCOVER_BOSTON_APP_SOURCE:
+    cpu05_12: discover_boston_1
+    cpu05_13: discover_boston_2
+    cpu05_14: discover_boston_3
+    cpu05_15: discover_boston_4
+    cpu05_16: discover_boston_5
+    cpu05_17: discover_boston_6
+    cpu05_18: discover_boston_7
+    cpu05_19: discover_boston_8
+    cpu05_20: discover_boston_9
+    cpu05_21: discover_boston_10
+    cpu05_22: discover_boston_11
+    cpu05_23: discover_boston_12
+    cpu05_24: discover_boston_13
+    cpu05_25: discover_boston_14
+  ROUTE: /discover-boston
+
+#"DISCOVER_BOSTON_APP_SOURCE={{ interactive_var_vals[DISCOVER_BOSTON_APP_SOURCE[inventory_hostname]] }}"
+
+
+#PM2 Vars
+pm2_config_file: discoverboston.config.js

@@ -1,9 +1,0 @@
----
-# This playbook install the nvidia display driver from Chocolatey
-- hosts: all
-  tasks:
-  - name: Ensure nvidia-display-driver is installed through Chocolatey
-    win_chocolatey:
-      name: nvidia-display-driver
-      version: 516.94
-      state: present

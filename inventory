@@ -156,19 +156,20 @@ cpu05_37 ansible_host=192.168.10.226
 
 [cms]
 #SVR01-01
-srv01_01 ansible_host=192.168.10.24
+svr01_01 ansible_host=192.168.10.24
 
 #SVR01-02
-srv01_02 ansible_host=192.168.10.25
+svr01_02 ansible_host=192.168.10.25
 
 [storage]
 #SVR01-03
-srv01_03 ansible_host=192.168.10.26
+svr01_03 ansible_host=192.168.10.26
 
-[videoserver]
+[wall]
 #DVS06-01
 dvs06_01 ansible_host=192.168.10.178
 
+[elevator]
 #DVS04-01
 dvs04_01 ansible_host=192.168.11.78
 
@@ -187,13 +188,19 @@ dvs04_05 ansible_host=192.168.11.82
 #DVS04-06
 dvs04_06 ansible_host=192.168.11.83
 
+[videoserver:children]
+wall
+elevator
+
 [test:vars]
 ansible_user=vagrant
 ansible_connection=winrm
 ansible_password=vagrant
 ansible_winrm_server_cert_validation=ignore
 windows_user=vagrant
-windows_password=vagrant
+; windows_password=vagrantansible_winrm_transport = kerberos
+; ansible_winrm_message_encryption = auto
+; ansible_winrm_kerberos_delegation = yes
 
 [station:children]
 lobby
@@ -208,6 +215,9 @@ ansible_connection=winrm
 ansible_user=VB
 ansible_password=View
 ansible_winrm_server_cert_validation=ignore
+; ansible_winrm_transport = kerberos
+; ansible_winrm_message_encryption = auto
+; ansible_winrm_kerberos_delegation = yes
 
 [server:children]
 cms
@@ -218,9 +228,15 @@ ansible_user=VB
 ansible_connection=winrm
 ansible_password=View
 ansible_winrm_server_cert_validation=ignore
+#ansible_winrm_transport = kerberos
+; ansible_winrm_message_encryption = auto
+; ansible_winrm_kerberos_delegation = yes
 
 [videoserver:vars]
 ansible_connection=winrm
 ansible_user="7thSense Design Ltd"
 ansible_password="" #No password 
 ansible_winrm_server_cert_validation=ignore
+; ansible_winrm_transport = kerberos
+; ansible_winrm_message_encryption = auto
+; ansible_winrm_kerberos_delegation = yes

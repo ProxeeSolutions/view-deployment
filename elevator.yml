@@ -1,0 +1,7 @@
+---
+# Playbook for videoserver system deployement
+- hosts: 
+    - elevator
+  roles:
+    - common
+    - videoserver

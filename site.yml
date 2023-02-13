@@ -7,4 +7,5 @@
 - import_playbook: storage.yml
 - import_playbook: cms.yml
 - import_playbook: station.yml
-- import_playbook: videoserver.yml
+- import_playbook: elevator.yml
+- import_playbook: wall.yml

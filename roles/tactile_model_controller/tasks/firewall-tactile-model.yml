@@ -1,0 +1,11 @@
+# Tactile Model Controller : 3100, 7000
+- name: Firewall rule to allow tactile model traffic on 3100/TCP and 7000/TCP
+  community.windows.win_firewall_rule:
+    name: Tactile Model Controller
+    localport: 3100,7000
+    action: allow
+    direction: in
+    protocol: tcp
+    profiles: domain,private,public
+    state: present
+    enabled: yes

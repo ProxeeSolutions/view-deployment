@@ -1,0 +1,11 @@
+# Cacher Controller : 3410, 3420, 3430, 3440
+- name: Firewall rule to allow Cacher Controller traffic on 3410/TCP, 3420/TCP, 3430/TCP, 3440/TCP
+  community.windows.win_firewall_rule:
+    name: Cacher Controller
+    localport: 3410,3420,3430,3440
+    action: allow
+    direction: in
+    protocol: tcp
+    profiles: domain,private,public
+    state: present
+    enabled: yes

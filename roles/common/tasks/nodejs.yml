@@ -1,0 +1,13 @@
+# This task install nodejs from Chocolatey
+- name: Ensure nodejs is installed through Chocolatey
+  win_chocolatey:
+    name: nodejs
+    state: present
+
+
+#Install PM2
+- name: Install "PM2" node.js package globally.
+  win_shell: npm install pm2 -g
+
+
+  

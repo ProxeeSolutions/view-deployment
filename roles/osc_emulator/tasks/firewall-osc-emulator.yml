@@ -1,0 +1,11 @@
+#OSC Emulator : 3700
+- name: Firewall rule to allow OSC Emulator traffic on 3700/TCP
+  community.windows.win_firewall_rule:
+    name: OSC Emulator
+    localport: 3700
+    action: allow
+    direction: in
+    protocol: tcp
+    profiles: domain,private,public
+    state: present
+    enabled: yes

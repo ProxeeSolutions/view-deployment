@@ -1,0 +1,11 @@
+# CMS : 80,443
+- name: Firewall rule to allow web traffic on 80/TCP and 443/TCP
+  community.windows.win_firewall_rule:
+    name: HTTP/HTTPS
+    localport: 80,443, 3306
+    action: allow
+    direction: in
+    protocol: tcp
+    profiles: domain,private,public
+    state: present
+    enabled: yes

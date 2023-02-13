@@ -1,0 +1,11 @@
+#Storage File Sharing: 8080
+- name: Firewall rule to allow file sharing traffic on 139/TCP, 445/TCP
+  community.windows.win_firewall_rule:
+    name: File Sharing
+    localport: 139,445
+    action: allow
+    direction: in
+    protocol: tcp
+    profiles: domain,private,public
+    state: present
+    enabled: yes

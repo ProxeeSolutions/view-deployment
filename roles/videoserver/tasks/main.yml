@@ -1,0 +1,6 @@
+---
+# Playbook to setup videoservers
+- name: Import subtasks task
+  include_tasks: "{{ item }}"
+  loop:
+    - firewall-videoserver.yml

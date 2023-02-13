@@ -1,3 +1,17 @@
 # roles/common/tasks/main.yml
-- name: Import netbox task
-  import_tasks: netbox-collect.yml
+- name: Import subtasks task
+  include_tasks: "{{ item }}"
+  loop:
+    #- netbox-collect.yml
+    - set-hostname.yml
+    - autologon.yml
+    #- base-software.yml
+    - power-settings.yml
+    #- deploy-base-dir.yml
+    - notifications.yml
+    - touchscreen.yml
+    - background.yml
+    - nodejs.yml
+  tags:
+         - package
+         - configuration

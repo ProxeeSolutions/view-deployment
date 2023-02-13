@@ -1,2 +1,6 @@
 ---
 # Playbook to setup cacher controller
+- name: Import subtasks task
+  include_tasks: "{{ item }}"
+  loop:
+    - firewall-cacher.yml

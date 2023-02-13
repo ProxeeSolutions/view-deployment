@@ -1,0 +1,35 @@
+---
+# This task configures the windows background to black
+- name: Set Windows background to black
+  ansible.windows.win_regedit:
+    path: HKCU:\Control Panel\Colors
+    name: Background
+    data: "0 0 0"
+    type: string
+- name: Remove Windows background picture
+  ansible.windows.win_regedit:
+    path: HKCU:\Control Panel\Desktop
+    name: Wallpaper
+    data: ""
+    type: string
+
+# This task hide desktop icons
+- name: Hide desktop icons
+  ansible.windows.win_regedit:
+    path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\
+    name: NoDesktop
+    data: 1
+    type: dword
+
+
+
+# This task enable the windows bar auto-hide
+# To enable auto-hide taskbar, find the row with the value data “00000008″. 
+# Double click the value in the first column, which should be “03”, and 
+# change it to “02”. When you’re done, press “OK”.
+- name: Enabling Windows taksbar auto-hide
+  ansible.windows.win_regedit:
+    path: HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3
+    name: Settings
+    data: [0x30,0x00,0x00,0x00,0xfe,0xff,0xff,0xff,0x02,0x00,0x00,0x00,0x03,0x00,0x00,0x00,0x7c,0x00,0x00,0x00,0x50,0x00,0x00,0x00 ,0x00,0x00,0x00,0x00,0xB0,0x05,0x00,0x00,0x00,0x08,0x00,0x00,0x00,0x06,0x00,0x00,0xc0,0x00,0x00,0x00,0x01,0x00,0x00,0x00]
+    type: binary

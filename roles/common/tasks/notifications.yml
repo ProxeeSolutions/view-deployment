@@ -1,0 +1,8 @@
+---
+# This task removes notificatrions on the windows computer
+- name: Set display timeout to disabled
+  ansible.windows.win_regedit:
+    path: HKCU:\Software\Policies\Microsoft\Windows\Explorer
+    name: DisableNotificationCenter
+    data: 1
+    type: dword

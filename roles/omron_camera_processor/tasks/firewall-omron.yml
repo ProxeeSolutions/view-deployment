@@ -1,0 +1,11 @@
+#Omron Camera : 2001
+- name: Firewall rule to allow Omron traffic on 2001/TCP
+  community.windows.win_firewall_rule:
+    name: Omron Camera
+    localport: 2001
+    action: allow
+    direction: in
+    protocol: tcp
+    profiles: domain,private,public
+    state: present
+    enabled: yes

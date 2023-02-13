@@ -1,8 +1,0 @@
----
-# This playbook install nodejs from Chocolatey
-- hosts: all
-  tasks:
-  - name: Ensure nodejs is installed through Chocolatey
-    win_chocolatey:
-      name: nodejs
-      state: present

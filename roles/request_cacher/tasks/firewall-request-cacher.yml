@@ -1,0 +1,11 @@
+#Request Cacher : 3200
+- name: Firewall rule to allow Request Cacher traffic on 3200/TCP
+  community.windows.win_firewall_rule:
+    name: Request Cacher
+    localport: 3200
+    action: allow
+    direction: in
+    protocol: tcp
+    profiles: domain,private,public
+    state: present
+    enabled: yes

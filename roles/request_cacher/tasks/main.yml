@@ -1,2 +1,6 @@
 ---
 # Playbook to setup request cacher
+- name: Import subtasks task
+  include_tasks: "{{ item }}"
+  loop:
+    - firewall-request-cacher.yml

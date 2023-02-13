@@ -1,2 +1,6 @@
 ---
 # Playbook to setup cms
+- name: Import subtasks task
+  include_tasks: "{{ item }}"
+  loop:
+    - firewall-cms.yml

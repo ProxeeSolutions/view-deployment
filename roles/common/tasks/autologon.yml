@@ -1,0 +1,8 @@
+---
+# Playbook to enable Windows Auto-Logon
+- name: Set autologon for user1
+  community.windows.win_auto_logon:
+    username: "{{ ansible_user }}"
+    password: "{{ ansible_password }}"
+  tags:
+    - configuration

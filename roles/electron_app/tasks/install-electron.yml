@@ -1,0 +1,19 @@
+# - name: Running electron installer
+#   ansible.windows.win_package:
+#     path: C:\ViewBoston\Electron\20230213_ViewBostonSetup1.0.0.exe
+#     arguments: /quiet /install
+#     #product_id: '{9AC08E99-230B-47e8-9721-4577B7F124EA}' to validate
+#     state: present
+#   tags:
+#     - electron
+#     - package
+
+- name: Create a shortcut in the windows shell startup
+  community.windows.win_shortcut:
+    src: C:\Users\VB\AppData\Local\Programs\viewboston\ViewBoston.exe
+    dest: '%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\ViewBoston.lnk'
+    icon: C:\Users\VB\AppData\Local\Programs\viewboston\ViewBoston.exe,0
+    directory: C:\Users\VB\AppData\Local\Programs\viewboston\
+  tags:
+    - electron
+    - package

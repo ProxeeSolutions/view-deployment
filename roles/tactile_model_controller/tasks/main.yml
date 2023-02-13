@@ -1,2 +1,6 @@
 ---
 # Playbook to setup tactile model controller
+- name: Import subtasks task
+  include_tasks: "{{ item }}"
+  loop:
+    - firewall-tactile-model.yml

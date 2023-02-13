@@ -1,8 +1,0 @@
----
-# Playbook to enable Windows Auto-Logon
-- hosts: all
-  tasks:
-  - name: Set autologon for user1
-    community.windows.win_auto_logon:
-      username: "{{ windows_user }}"
-      password: "{{ windows_password }}"

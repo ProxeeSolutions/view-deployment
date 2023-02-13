@@ -1,0 +1,11 @@
+# Remote Monitor : 3510, 3520, 3530, 3540
+- name: Firewall rule to allow web traffic on 3510/TCP, 3520/TCP, 3530/TCP, 3540/TCP
+  community.windows.win_firewall_rule:
+    name: Remote Monitor
+    localport: 3510, 3520, 3530, 3540
+    action: allow
+    direction: in
+    protocol: tcp
+    profiles: domain,private,public
+    state: present
+    enabled: yes

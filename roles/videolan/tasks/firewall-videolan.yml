@@ -1,0 +1,11 @@
+#VLC Player : 8080
+- name: Firewall rule to allow VLC traffic on 8080/TCP
+  community.windows.win_firewall_rule:
+    name: VLC
+    localport: 8080
+    action: allow
+    direction: in
+    protocol: tcp
+    profiles: domain,private,public
+    state: present
+    enabled: yes

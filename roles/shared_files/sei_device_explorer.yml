@@ -1,0 +1,23 @@
+---
+# Install US Digital SEI Device Explorer
+# https://www.usdigital.com/support/resources/downloads/software/sei-software/
+- name: Create temporary build directory
+  ansible.windows.win_tempfile:
+    state: directory
+    suffix: installers
+  register: result
+
+- debug:
+    msg: "Copied installer to {{ result.path }}"
+
+- name: Copy US Digital SEI Device Explorer to temp directory
+  ansible.windows.win_copy:
+    src: packages/USDigitalDeviceExplorerSetup_1.58.10.msi
+    dest: '{{result.path}}\'
+- name: Install AUS Digital SEI Device Explorer
+  ansible.windows.win_package:
+    path: '{{result.path}}\USDigitalDeviceExplorerSetup_1.58.10.msi'
+    product_id: '{DBDA69FB-7466-4FFC-B58B-35E7E7CBEDC9}'
+    arguments: /qn /install
+    state: present
+  

@@ -4,3 +4,7 @@
     - viewer
   roles:
     - common
+    - electron_app
+    - omron_camera_processor
+    - request_cacher
+    - osc_emulator

@@ -2,8 +2,10 @@
 # Playbook for interactive (discover boston) system deployement
 - hosts: 
     - interactive
+    - test
   roles:
     - common
+    - nodejs
     - electron_app
     - omron_camera_processor
     - request_cacher

@@ -4,6 +4,7 @@
     - poster
   roles:
     - common
+    - nodejs
     - electron_app
     - omron_camera_processor
     - request_cacher

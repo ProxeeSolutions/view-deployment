@@ -12,7 +12,7 @@
 
 - name: Copy ASP.NET Core Runtime 6.0.0. Hosting Bundle to temp directory
   ansible.windows.win_copy:
-    src: packages/dotnet-hosting-6.0.0-win.exe
+    src: ../../packages/dotnet-hosting-6.0.0-win.exe
     dest: '{{result.path}}\'
 - name: Install ASP.NET Core Runtime 6.0.0. Hosting Bundle
   ansible.windows.win_package:
@@ -20,6 +20,7 @@
     arguments: /quiet /install
     product_id: '{120E0990-DDCC-456B-8B29-0BDD2D82C4EA}'
     state: present
+  ignore_errors: true
 
 #Product Ids for all installed components
 #{120E0990-DDCC-456B-8B29-0BDD2D82C4EA} Microsoft .NET Host - 6.0.0 (x64)                              C:\Windows\Ins...

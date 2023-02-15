@@ -1,0 +1,53 @@
+---
+# Copy ViewBoston Folder
+- hosts: touchscreen
+  tasks:
+
+  - name: Remove View Boston Shortcut
+    community.windows.win_shortcut:
+      src: C:\Users\VB\AppData\Local\Programs\viewboston\ViewBoston.exe
+      dest: '%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\ViewBoston.lnk'
+      icon: C:\Users\VB\AppData\Local\Programs\viewboston\ViewBoston.exe,0
+      directory: C:\Users\VB\AppData\Local\Programs\viewboston\
+      state: absent
+      
+  - name: Ensure the directory ViewBoston is present
+    ansible.windows.win_file:
+      path: C:\ViewBoston
+      state: directory
+
+
+  - name: Copy Request Cacher files excluding cache files
+    community.windows.win_robocopy:
+      src: \\192.168.10.26\ViewBoston
+      dest: C:\ViewBoston
+      flags: /E /MT:32
+    become: true
+    become_method: runas
+    become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+    vars:
+      ansible_become_user: vb
+      ansible_become_pass: View
+
+  - name: Create a scheduled task launch Touchtest
+    community.windows.win_scheduled_task:
+      name: Touchtester
+      description: Start Touchtester
+      actions:
+        - path: 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
+          arguments: 
+            --kiosk C:\ViewBoston\Misc\Tools\touchtester.html
+            --edge-kiosk-type=fullscreen
+      triggers:
+      - type: logon
+      username: vb
+      runlevel: highest
+      state: present
+      enabled: yes
+
+  - name: Reboot the machine with all defaults
+    ansible.windows.win_reboot:
+    
+  # - name: start Touchtester in fullscreen 
+  #   win_command: |
+  #     "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --kiosk C:\ViewBoston\Misc\Tools\touchtester.html --edge-kiosk-type=fullscreen

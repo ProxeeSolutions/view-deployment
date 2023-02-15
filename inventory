@@ -1,6 +1,13 @@
 [production:children]
 station
-test
+
+
+[touchscreen:children]
+tactile
+poster
+interactive
+finale
+
 
 
 [test]
@@ -146,7 +153,7 @@ cpu05_33 ansible_host=192.168.10.222
 cpu05_34 ansible_host=192.168.10.223
 
 #CPU05-35
-cpu05_37 ansible_host=192.168.10.224
+cpu05_35 ansible_host=192.168.10.224
 
 #CPU05-36
 cpu05_36 ansible_host=192.168.10.225

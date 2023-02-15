@@ -4,13 +4,10 @@
     - tactile
   roles:
     - common
+    - nodejs
     - videolan
     - tactile_model_controller
     - omron_camera_processor
     - request_cacher
     - osc_emulator
   tasks:
-    - import_tasks: roles/shared_files/aspnet.yml
-    - import_tasks: roles/shared_files/sei_device_explorer.yml
-    #FTDI is broken because of DPInst.exe for now
-    # - import_tasks: roles/shared_files/ftdi.yml

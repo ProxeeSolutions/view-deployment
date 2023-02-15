@@ -4,12 +4,8 @@
 - hosts: all
   gather_facts: false
   vars:
-    filepath: '{{view_win_base_path}}\test.json'
+    filepath: 'C:\ViewBoston\Utils\OmronCamera\Config.json'
   tasks:
-    - name: Ensure directory is present
-      ansible.windows.win_file:
-        path: '{{view_win_base_path}}'
-        state: directory
     - name: Read file
       ansible.builtin.slurp:
         src: "{{ filepath }}"
@@ -26,7 +22,7 @@
         var: current_payload
     - name: append more key/values
       set_fact:
-        modified_payload: "{{ current_payload | default([]) | combine({ 'hello': 'world' }) }}"
+        modified_payload: "{{ current_payload | default([]) | combine({ 'AddresseSource': '192.168.11.25' }) }}"
 
     - debug:
         var: modified_payload

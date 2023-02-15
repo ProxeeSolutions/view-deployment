@@ -1,0 +1,24 @@
+---
+#
+- hosts: all
+  tasks:
+    - name: Ensure the directory ViewBoston is present
+      ansible.windows.win_file:
+        path: C:\ViewBoston\Utils\RequestCacher\
+        state: directory
+      tags:
+        - package
+
+    - name: Copy base dir with cache
+      win_copy:
+        remote_src: true
+        src: \\192.168.10.26\ViewBoston\Utils\RequestCacher\
+        dest: C:\ViewBoston\Utils\RequestCacher\
+      become: true
+      become_method: runas
+      become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+      vars:
+        ansible_become_user: vb
+        ansible_become_pass: View
+      tags:
+        - package

@@ -4,3 +4,5 @@
   include_tasks: "{{ item }}"
   loop:
     - firewall-omron.yml
+    - aspnet.yml
+    - deploy-omron-camera-processor.yml

@@ -1,1 +1,29 @@
 pm2_config_file: posters.config.js
+
+OMRONCAMERA:
+  AddresseSource:
+    cpu02_08: 192.168.11.91
+    cpu02_09: 192.168.11.92
+    cpu02_10: 192.168.11.93
+    cpu02_11: 192.168.11.94
+    cpu02_12: 192.168.11.95
+
+ELECTRON:
+  THEATER_POSTER_APP_SOURCE:
+    cpu02_08: theatre_poster_1
+    cpu02_09: theatre_poster_2
+    cpu02_10: theatre_poster_3
+    cpu02_11: theatre_poster_4
+    cpu02_12: theatre_poster_5
+  ROUTE: /theater-poster
+
+MONITORING:
+  REMOTE_MONITORING_URL: 192.168.10.26:3510
+  MONITORING_SOURCE_NAME:
+    cpu02_08: N00-01
+    cpu02_09: N00-02
+    cpu02_10: N00-03
+    cpu02_11: N00-04
+    cpu02_12: N00-05
+
+

@@ -1,8 +1,8 @@
 # CMS : 80,443
-- name: Firewall rule to allow web traffic on 80/TCP and 443/TCP
+- name: Firewall rule to allow web traffic on 80/TCP, 443/TCP and 3306/TCP
   community.windows.win_firewall_rule:
-    name: HTTP/HTTPS
-    localport: 80,443, 3306
+    name: HTTP/HTTPS and MySQL
+    localport: 80,443,3306
     action: allow
     direction: in
     protocol: tcp

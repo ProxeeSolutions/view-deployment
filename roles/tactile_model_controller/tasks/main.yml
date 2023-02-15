@@ -4,3 +4,4 @@
   include_tasks: "{{ item }}"
   loop:
     - firewall-tactile-model.yml
+    - deploy-tactile-model-controller.yml

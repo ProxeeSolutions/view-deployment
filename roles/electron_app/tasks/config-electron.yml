@@ -35,6 +35,24 @@
     - configuration
     - electron
 
+- name: Copy google API config file
+  win_copy:
+    remote_src: true
+    src: \\192.168.10.26\ViewBoston\Electron\_config\google_app_credentials.json
+    dest: C:\Users\VB\AppData\Local\Programs\viewboston\google_app_credentials.json
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  tags:
+    - configuration
+    - electron
+
+
+
+
 - name: modify route configuration
   community.windows.win_lineinfile:
     path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
@@ -42,18 +60,13 @@
     state: present
     backup: true
     create: true
-    line: 'ROUTE=/discover-boston'
+    line: 'ROUTE={{ ELECTRON.ROUTE }}'
   tags:
     - configuration
     - electron
 
-# - debug:
-#     var: interactive_var_vals.DISCOVER_BOSTON_APP_SOURCE[inventory_hostname]
-#   tags:
-#     - configuration
-#     - electron
 
-
+# Configuration for discover-boston
 - name: modify configuration per hosts
   community.windows.win_lineinfile:
     path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
@@ -61,11 +74,59 @@
     state: present
     backup: true
     create: true
-    line: "DISCOVER_BOSTON_APP_SOURCE={{ interactive_var_vals.DISCOVER_BOSTON_APP_SOURCE[inventory_hostname] }}"
+    line: "DISCOVER_BOSTON_APP_SOURCE={{ ELECTRON.DISCOVER_BOSTON_APP_SOURCE[inventory_hostname] }}"
   register: lineresult
+  when: "'interactive' in group_names"
   tags:
     - configuration
     - electron
 
-- debug:
-    var: lineresult
+# Configuration for poster
+# THEATER_POSTER_APP_SOURCE=theatre_poster_1
+- name: modify configuration per hosts
+  community.windows.win_lineinfile:
+    path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+    regex: '^THEATER_POSTER_APP_SOURCE='
+    state: present
+    backup: true
+    create: true
+    line: "THEATER_POSTER_APP_SOURCE={{ ELECTRON.THEATER_POSTER_APP_SOURCE[inventory_hostname] }}"
+  register: lineresult
+  when: "'poster' in group_names"
+  tags:
+    - configuration
+    - electron
+
+
+# Configuration for viewer
+# VIRTUAL_VIEWER_APP_SOURCE=virtual_viewer_1
+- name: modify configuration per hosts
+  community.windows.win_lineinfile:
+    path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+    regex: '^VIRTUAL_VIEWER_APP_SOURCE='
+    state: present
+    backup: true
+    create: true
+    line: "VIRTUAL_VIEWER_APP_SOURCE={{ ELECTRON.VIRTUAL_VIEWER_APP_SOURCE[inventory_hostname] }}"
+  register: lineresult
+  when: "'viewer' in group_names"
+  tags:
+    - configuration
+    - electron
+
+
+# Configuration for finale
+# FINALE_KIOSK_APP_SOURCE=finale_1
+- name: modify configuration per hosts
+  community.windows.win_lineinfile:
+    path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+    regex: '^FINALE_KIOSK_APP_SOURCE='
+    state: present
+    backup: true
+    create: true
+    line: "FINALE_KIOSK_APP_SOURCE={{ ELECTRON.FINALE_KIOSK_APP_SOURCE[inventory_hostname] }}"
+  register: lineresult
+  when: "'finale' in group_names"
+  tags:
+    - configuration
+    - electron

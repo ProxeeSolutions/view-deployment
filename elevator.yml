@@ -4,4 +4,5 @@
     - elevator
   roles:
     - common
+    - nodejs
     - videoserver

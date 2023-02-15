@@ -1,0 +1,73 @@
+- name: Ensure the directory ViewBoston is present
+  ansible.windows.win_file:
+    path: C:\ViewBoston\Utils\RequestCacher
+    state: directory
+  tags:
+    - package
+
+# TODO Loop over to exclude public/ and db.dbjson
+- name: Copy Request Cacher files excluding cache files
+  community.windows.win_robocopy:
+    src: \\192.168.10.26\ViewBoston\Utils\RequestCacher
+    dest: C:\ViewBoston\Utils\RequestCacher
+    flags: /E /XD public /XF db.dbjson /E /MT:32
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  tags:
+    - package
+  
+- name: Delete package-lock.json
+  ansible.windows.win_file:
+    path: C:\ViewBoston\Utils\RequestCacher\package-lock.json
+    state: absent
+
+- name: Install npm packages
+  ansible.windows.win_shell: 'npm i'
+  args:
+    chdir: C:\ViewBoston\Utils\RequestCacher
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+
+- name: Copy .env for Request Cacher
+  ansible.windows.win_copy:
+    remote_src: true
+    src: \\192.168.10.26\ViewBoston\Utils\_config\RequestCacher.env
+    dest: C:\ViewBoston\Utils\RequestCacher\.env
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  tags:
+    - configuration
+
+- name: modify REMOTE_MONITORING_URL per hosts
+  community.windows.win_lineinfile:
+    path: C:\ViewBoston\Utils\RequestCacher\.env
+    regex: '^REMOTE_MONITORING_URL='
+    state: present
+    backup: true
+    create: true
+    line: "REMOTE_MONITORING_URL={{ MONITORING.REMOTE_MONITORING_URL }}"
+  tags:
+    - configuration
+
+- name: modify MONITORING_SOURCE_NAME per hosts
+  community.windows.win_lineinfile:
+    path: C:\ViewBoston\Utils\RequestCacher\.env
+    regex: '^MONITORING_SOURCE_NAME='
+    state: present
+    backup: true
+    create: true
+    line: "MONITORING_SOURCE_NAME={{ MONITORING.MONITORING_SOURCE_NAME[inventory_hostname] }}"
+  tags:
+    - configuration

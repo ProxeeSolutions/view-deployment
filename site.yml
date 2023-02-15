@@ -6,6 +6,10 @@
       include_vars: vault.yml
 - import_playbook: storage.yml
 - import_playbook: cms.yml
-- import_playbook: station.yml
 - import_playbook: elevator.yml
 - import_playbook: wall.yml
+- import_playbook: interactive.yml
+- import_playbook: finale.yml
+- import_playbook: tactile.yml
+- import_playbook: poster.yml
+- import_playbook: lobby.yml

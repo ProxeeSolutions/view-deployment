@@ -1,1 +1,48 @@
 pm2_config_file: finale.config.js
+
+OMRONCAMERA:
+  AddresseSource:
+    cpu05_26: 192.168.11.96
+    cpu05_27: 192.168.11.97
+    cpu05_28: 192.168.11.98
+    cpu05_29: 192.168.11.99
+    cpu05_30: 192.168.11.100
+    cpu05_31: 192.168.11.101
+    cpu05_32: 192.168.11.102
+    cpu05_33: 192.168.11.103
+    cpu05_34: 192.168.11.104
+    cpu05_35: 192.168.11.105
+    cpu05_36: 192.168.11.106
+    cpu05_37: 192.168.11.107
+
+ELECTRON:
+  ROUTE: /finale-kiosk
+  FINALE_KIOSK_APP_SOURCE:
+    cpu05_26: finale_1
+    cpu05_27: finale_2
+    cpu05_28: finale_3
+    cpu05_29: finale_4
+    cpu05_30: finale_5
+    cpu05_31: finale_6
+    cpu05_32: finale_7
+    cpu05_33: finale_8
+    cpu05_34: finale_9
+    cpu05_35: finale_10
+    cpu05_36: finale_11
+    cpu05_37: finale_12
+
+MONITORING:
+  REMOTE_MONITORING_URL: 192.168.10.26:3510
+  MONITORING_SOURCE_NAME:
+    cpu05_26: S20-01
+    cpu05_27: S20-02
+    cpu05_28: S20-03
+    cpu05_29: S20-04
+    cpu05_30: S20-05
+    cpu05_31: S20-06
+    cpu05_32: S20-07
+    cpu05_33: S20-08
+    cpu05_34: S20-09
+    cpu05_35: S20-10
+    cpu05_36: S20-11
+    cpu05_37: S20-12

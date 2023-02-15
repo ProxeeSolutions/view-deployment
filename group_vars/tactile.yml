@@ -1,1 +1,20 @@
 pm2_config_file: tactilemodel.config.js
+
+OMRONCAMERA:
+  AddresseSource:
+    cpu02_02: 192.168.11.21
+    cpu02_03: 192.168.11.22
+    cpu02_04: 192.168.11.23
+    cpu02_05: 192.168.11.24
+
+TACTILECONTROLLER:
+  CMS_SCAN_SOURCE:
+    cpu02_02: tactile_1
+    cpu02_03: tactile_2
+    cpu02_04: tactile_3
+    cpu02_05: tactile_4
+  LANDMARKS:
+    cpu02_02: "121,38"
+    cpu02_03: "43,37,39"
+    cpu02_04: "44,41,40"
+    cpu02_05: "46,175"

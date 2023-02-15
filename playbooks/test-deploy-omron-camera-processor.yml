@@ -1,0 +1,59 @@
+---
+- hosts: all
+  tasks:
+    - name: Ensure the directory OmronCamera is present
+      ansible.windows.win_file:
+        path: C:\ViewBoston\Utils\OmronCamera
+        state: directory
+      tags:
+        - package
+
+
+    - name: Copy config file for Omrom Camera Processor
+      ansible.windows.win_copy:
+        remote_src: true
+        src: \\192.168.10.26\ViewBoston\Utils\_config\OmronCamera.json
+        dest: C:\ViewBoston\Utils\OmronCamera\Config.json
+      become: true
+      become_method: runas
+      become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+      vars:
+        ansible_become_user: vb
+        ansible_become_pass: View
+      tags:
+        - configuration
+
+    - name: Create a scheduled task launch Omron Camera Processor
+      community.windows.win_scheduled_task:
+        name: OmronCameraProcessor
+        description: Start Omron Process
+        actions:
+          - path: C:\ViewBoston\Utils\OmronCamera\OMRON_API.exe
+            working_directory: C:\ViewBoston\Utils\OmronCamera\
+            arguments: 
+        triggers:
+        - type: logon
+        username: vb
+        runlevel: highest
+        state: present
+        enabled: yes
+
+    # Omron Camera Processor Configuration
+    - name: Set filepath
+      set_fact:
+        omron_config_path: C:\ViewBoston\Utils\OmronCamera\Config.json
+    - name: Read Omron Config file
+      ansible.builtin.slurp:
+        src: "{{ omron_config_path }}"
+      register: current_file
+    - name: modify more key/values
+      set_fact:
+        current_payload: "{{ current_file['content'] | b64decode }}"
+    - name: append more key/values
+      set_fact:
+#        modified_payload: "{{ current_payload | default([]) | combine({ 'AddresseSource': ~ OMRONCAMERA.AddresseSource[inventory_hostname] }) }}"
+        modified_payload: "{{ current_payload | default([]) | combine({ 'AddresseSource': OMRONCAMERA.AddresseSource[inventory_hostname] }) }}"
+    - name: write vars back to file
+      ansible.windows.win_copy: 
+        content: "{{ modified_payload | to_nice_json }}" 
+        dest:  "{{ omron_config_path }}"

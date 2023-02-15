@@ -1,0 +1,23 @@
+
+- name: Ensure the directory OSCEmulator is present
+  ansible.windows.win_file:
+    path: C:\ViewBoston\Utils\OSCEmulator
+    state: directory
+  tags:
+    - package
+
+- name: Copy config file for OSC Emulator
+  ansible.windows.win_copy:
+    remote_src: true
+    src: \\192.168.10.26\ViewBoston\Utils\_config\OSCEmulator.env
+    dest: C:\ViewBoston\Utils\OSCEmulator\.env
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  tags:
+    - configuration
+
+## OSC Emulator is launched by PM2

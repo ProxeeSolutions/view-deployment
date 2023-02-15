@@ -5,6 +5,7 @@
     - test
   roles:
     - common
+    - nodejs
     - zerotier
     - cacher_controller
     - remote_monitor

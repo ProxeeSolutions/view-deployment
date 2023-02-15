@@ -1,1 +1,42 @@
 pm2_config_file: viewers.config.js
+
+OMRONCAMERA:
+  AddresseSource:
+    cpu05_02: 192.168.11.11
+    cpu05_03: 192.168.11.12
+    cpu05_04: 192.168.11.13
+    cpu05_05: 192.168.11.14
+    cpu05_06: 192.168.11.15
+    cpu05_07: 192.168.11.16
+    cpu05_08: 192.168.11.17
+    cpu05_09: 192.168.11.18
+    cpu05_10: 192.168.11.19
+    cpu05_11: 192.168.11.20
+
+ELECTRON:
+  VIRTUAL_VIEWER_APP_SOURCE:
+    cpu05_02: virtual_viewer_1
+    cpu05_03: virtual_viewer_2
+    cpu05_04: virtual_viewer_3
+    cpu05_05: virtual_viewer_4
+    cpu05_06: virtual_viewer_5
+    cpu05_07: virtual_viewer_6
+    cpu05_08: virtual_viewer_7
+    cpu05_09: virtual_viewer_8
+    cpu05_10: virtual_viewer_9
+    cpu05_11: virtual_viewer_10
+  ROUTE: /virtual-viewer
+
+MONITORING:
+  REMOTE_MONITORING_URL: 192.168.10.26:3510
+  MONITORING_SOURCE_NAME:
+    cpu05_02: G11-01
+    cpu05_03: G11-02
+    cpu05_04: G11-03
+    cpu05_05: G11-04
+    cpu05_06: G11-05
+    cpu05_07: G11-06
+    cpu05_08: G11-07
+    cpu05_09: G11-08
+    cpu05_10: G11-09
+    cpu05_11: G11-10

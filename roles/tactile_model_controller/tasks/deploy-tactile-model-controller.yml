@@ -1,0 +1,49 @@
+
+- name: Ensure the directory OmronCamera is present
+  ansible.windows.win_file:
+    path: C:\ViewBoston\Utils\OmronCamera
+    state: directory
+  tags:
+    - package
+
+- name: Copy config file for Tactile Model Controller
+  ansible.windows.win_copy:
+    remote_src: true
+    src: \\192.168.10.26\ViewBoston\Utils\_config\TactileModelController.env
+    dest: C:\ViewBoston\Utils\TactileModelController\.env
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  tags:
+    - configuration
+
+
+# Configuration for tactile
+- name: modify configuration per hosts
+  community.windows.win_lineinfile:
+    path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+    regex: '^CMS_SCAN_SOURCE='
+    state: present
+    backup: true
+    create: true
+    line: "CMS_SCAN_SOURCE={{ TACTILECONTROLLER.CMS_SCAN_SOURCE[inventory_hostname] }}"
+  register: lineresult
+  tags:
+    - configuration
+    - electron
+
+- name: modify configuration per hosts
+  community.windows.win_lineinfile:
+    path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+    regex: '^LANDMARKS='
+    state: present
+    backup: true
+    create: true
+    line: "LANDMARKS={{ TACTILECONTROLLER.LANDMARKS[inventory_hostname] }}"
+  register: lineresult
+  tags:
+    - configuration
+    - electron

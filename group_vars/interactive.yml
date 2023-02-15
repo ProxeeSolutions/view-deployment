@@ -3,7 +3,7 @@
 # Usage vars:
 #    my_var: "{{ my_var_vals[inventory_hostname] }}"
 
-interactive_var_vals:
+ELECTRON:
   DISCOVER_BOSTON_APP_SOURCE:
     cpu05_12: discover_boston_1
     cpu05_13: discover_boston_2
@@ -20,9 +20,44 @@ interactive_var_vals:
     cpu05_24: discover_boston_13
     cpu05_25: discover_boston_14
   ROUTE: /discover-boston
+  
+MONITORING:
+  REMOTE_MONITORING_URL: 192.168.10.26:3510
+  MONITORING_SOURCE_NAME:
+    cpu05_12: G11-01
+    cpu05_13: G11-02
+    cpu05_14: G11-03
+    cpu05_15: G11-04
+    cpu05_16: G11-05
+    cpu05_17: G11-06
+    cpu05_18: G11-07
+    cpu05_19: G11-08
+    cpu05_20: G11-09
+    cpu05_21: G11-10
+    cpu05_22: G11-11
+    cpu05_23: G11-12
+    cpu05_24: G11-13
+    cpu05_25: G11-14
 
+OMRONCAMERA:
+  AddresseSource:
+    cpu05_12: 192.168.11.25
+    cpu05_13: 192.168.11.26
+    cpu05_14: 192.168.11.27
+    cpu05_15: 192.168.11.28
+    cpu05_16: 192.168.11.29
+    cpu05_17: 192.168.11.30
+    cpu05_18: 192.168.11.31
+    cpu05_19: 192.168.11.32
+    cpu05_20: 192.168.11.33
+    cpu05_21: 192.168.11.34
+    cpu05_22: 192.168.11.35
+    cpu05_23: 192.168.11.36
+    cpu05_24: 192.168.11.37
+    cpu05_25: 192.168.11.38
+
+    
 #"DISCOVER_BOSTON_APP_SOURCE={{ interactive_var_vals[DISCOVER_BOSTON_APP_SOURCE[inventory_hostname]] }}"
-
 
 #PM2 Vars
 pm2_config_file: discoverboston.config.js

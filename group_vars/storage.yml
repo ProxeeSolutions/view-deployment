@@ -1,1 +1,1 @@
-pm2_config: monitor.config.js
+pm2_config_file: monitor.config.js

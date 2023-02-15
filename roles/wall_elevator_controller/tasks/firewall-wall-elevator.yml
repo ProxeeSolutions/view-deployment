@@ -1,0 +1,11 @@
+# Wall and Elevator Controller : 8080
+- name: Firewall rule to allow Cacher Controller traffic on 8080/TCP
+  community.windows.win_firewall_rule:
+    name: Wall and Elevator Controller
+    localport: 8080
+    action: allow
+    direction: in
+    protocol: tcp
+    profiles: domain,private,public
+    state: present
+    enabled: yes

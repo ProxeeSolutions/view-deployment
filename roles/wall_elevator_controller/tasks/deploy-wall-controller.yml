@@ -1,0 +1,43 @@
+# task for wall and elevator controller configuration
+- name: Ensure the directory WallElevatorController is present
+  ansible.windows.win_file:
+    path: C:\ViewBoston\Utils\WallElevatorControllers
+    state: directory
+  tags:
+    - configuration
+
+- name: Copy config file for Wall Elevator Controller
+  ansible.windows.win_copy:
+    remote_src: true
+    src: \\192.168.10.26\ViewBoston\Utils\_config\WallElevatorController.yml
+    dest: C:\ViewBoston\Utils\WallElevatorControllers\config.yml
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  tags:
+    - configuration
+
+# NO MODIFICATIONS
+    # Wall Elevator Controller Configuration YAML file
+    # wall_elevator_controller_config_path
+#     - name: Set filepath
+#       set_fact:
+#         wall_elevator_controller_config_path: C:\ViewBoston\Utils\_config\WallElevatorController.yml
+#     - name: Read Rotary Encoder Processor Config file
+#       ansible.builtin.slurp:
+#         src: "{{ wall_elevator_controller_config_path }}"
+#       register: current_file
+#     - name: modify more key/values
+#       set_fact:
+#         current_payload: "{{ current_file['content'] | b64decode }}"
+#     - name: append more key/values
+#       set_fact:
+# #        modified_payload: "{{ current_payload | default([]) | combine({ 'AddresseSource': ~ OMRONCAMERA.AddresseSource[inventory_hostname] }) }}"
+#         modified_payload: "{{ current_payload | default([]) | combine({ 'AddresseSource': OMRONCAMERA.AddresseSource[inventory_hostname] }) }}"
+#     - name: write vars back to file
+#       ansible.windows.win_copy: 
+#         content: "{{ modified_payload | to_nice_json }}" 
+#         dest:  "{{ wall_elevator_controller_config_path }}"

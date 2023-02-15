@@ -7,10 +7,12 @@
     - autologon.yml
     #- base-software.yml
     - power-settings.yml
-    #- deploy-base-dir.yml
+    - deploy-base-dir.yml
     - notifications.yml
     - touchscreen.yml
     - background.yml
+    - file-extensions.yml
+    - set-volume.yml
   tags:
-         - package
-         - configuration
+    - package
+    - configuration

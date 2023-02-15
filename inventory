@@ -12,7 +12,7 @@ finale
 
 [test]
 #vmware ansible_host=192.168.236.183
-vagrant_test ansible_host=192.168.236.218
+#vagrant_test ansible_host=192.168.236.218
 
 
 

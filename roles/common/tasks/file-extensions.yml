@@ -1,0 +1,15 @@
+# This task displays the file extensions on the windows computer
+- name: Set display of file extensions to enabled
+  ansible.windows.win_regedit:
+    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+    name: HideFileExt
+    data: 0
+    type: dword
+
+# This task displays hidden file on the windows computer
+- name: Set display of hidden files to enabled
+  ansible.windows.win_regedit:
+    path: HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced
+    name: Hidden
+    data: 1
+    type: dword

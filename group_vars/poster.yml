@@ -16,6 +16,7 @@ ELECTRON:
     cpu02_11: theatre_poster_4
     cpu02_12: theatre_poster_5
   ROUTE: /theater-poster
+  CMS_API_ROOT: http://192.168.10.24
 
 MONITORING:
   REMOTE_MONITORING_URL: 192.168.10.26:3510
@@ -26,4 +27,4 @@ MONITORING:
     cpu02_11: N00-04
     cpu02_12: N00-05
 
-
+AUDIO_VOLUME: 50

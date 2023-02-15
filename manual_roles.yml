@@ -1,0 +1,42 @@
+---
+# Playbook for cms server system deployement
+- hosts: 
+    - all
+  tasks:
+  # roles:
+  #   - common
+  #   - zerotier
+  #   - nodejs
+  #   - videoserver
+  #   - wall_elevator_controller
+  #   - lobby
+  #   - videolan
+  #   - tactile_model_controller
+  #   - omron_camera_processor
+  #   - request_cacher
+  #   - osc_emulator
+  #   - electron_app
+
+
+
+  # - name: Run tasks/other.yaml instead of 'main'
+  #   ansible.builtin.include_role:
+  #     name: common
+  #     #tasks_from: autologon.yml
+  #     #tasks_from:  background.yml
+  #     #tasks_from:  base-softwares.yml
+  #     #tasks_from:  deploy-base-dir.yml
+  #     #tasks_from:  file-extensions.yml
+  #     #tasks_from:  netbox-collect.yml
+  #     #tasks_from:  notifications.yml
+  #     tasks_from:  power-settings.yml
+  #     #tasks_from:  set-hostname.yml
+  #     #tasks_from:  set-volume.yml
+  #     #tasks_from:  touchscreen.yml
+  #     #tasks_from:  winrm-set-auto.yml
+
+
+  - name: Run tasks/other.yaml instead of 'main'
+    ansible.builtin.include_role:
+      name: electron_app
+      tasks_from: install-electron

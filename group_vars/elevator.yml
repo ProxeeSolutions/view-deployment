@@ -1,1 +1,3 @@
 pm2_config_file: elevator.config.js
+
+AUDIO_VOLUME: 50

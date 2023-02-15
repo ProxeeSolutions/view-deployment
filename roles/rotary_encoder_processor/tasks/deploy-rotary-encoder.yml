@@ -1,0 +1,41 @@
+
+- name: Ensure the directory RotaryEncoderProcessor is present
+  ansible.windows.win_file:
+    path: C:\ViewBoston\Utils\RotaryEncoderProcessor
+    state: directory
+  tags:
+    - configuration
+
+- name: Copy config file for Rotary Encoder Processor
+  ansible.windows.win_copy:
+    remote_src: true
+    src: \\192.168.10.26\ViewBoston\Utils\_config\RotaryEncoder.json
+    dest: C:\ViewBoston\Utils\RotaryEncoderProcessor\config.json
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  tags:
+    - configuration
+
+# Rotary Encoder Processor Configuration
+# CalibrationOffset: int 0 to 3600
+- name: Set filepath
+  set_fact:
+    rotary_encoder_config_path: C:\ViewBoston\Utils\RotaryEncoderProcessor\config.json
+- name: Read Rotary Encoder Processor Config file
+  ansible.builtin.slurp:
+    src: "{{ rotary_encoder_config_path }}"
+  register: current_file
+- name: modify more key/values
+  set_fact:
+    current_payload: "{{ current_file['content'] | b64decode }}"
+- name: append more key/values
+  set_fact:
+    modified_payload: "{{ current_payload | default([]) | combine({ 'CalibrationOffset': ROTARY.CalibrationOffset[inventory_hostname] }) }}"
+- name: write vars back to file
+  ansible.windows.win_copy: 
+    content: "{{ modified_payload | to_nice_json }}" 
+    dest:  "{{ rotary_encoder_config_path }}"

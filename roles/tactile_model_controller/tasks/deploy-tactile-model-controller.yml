@@ -24,7 +24,7 @@
 # Configuration for tactile
 - name: modify configuration per hosts
   community.windows.win_lineinfile:
-    path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+    path: C:\ViewBoston\Utils\TactileModelController\.env
     regex: '^CMS_SCAN_SOURCE='
     state: present
     backup: true
@@ -37,7 +37,7 @@
 
 - name: modify configuration per hosts
   community.windows.win_lineinfile:
-    path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+    path: C:\ViewBoston\Utils\TactileModelController\.env
     regex: '^LANDMARKS='
     state: present
     backup: true

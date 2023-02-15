@@ -46,28 +46,38 @@
     - package
     - electron
 
-# - name: Sync ViewBoston content in recursive mode, removing any files/directories found in destination that do not exist in the source
-#   community.windows.win_robocopy:
-#     src: X:\
-#     #src: \\SRV01-03\ViewBoston
-#     dest: C:\ViewBoston
-#     recurse: yes
-#     purge: yes
-#     when: inventory_hostname != svr01_03 #do not deploy to the source server
-#   tags:
-#     - package
-
-- name: Copy base dir
-  win_copy:
-    remote_src: true
-    src: \\192.168.10.26\ViewBoston\
+- name: Sync ViewBoston content in recursive mode
+  community.windows.win_robocopy:
+    src: \\192.168.10.26\ViewBoston
     dest: C:\ViewBoston
+    # /E copy subdirectories, even if empty
+    # /MT:32 use multithread
+    # /IT select files with different attributes
+    # /IM select files with different modified dates
+    flags: /E /MT:32 /IT /IM
+  throttle: 5
   become: true
   become_method: runas
   become_flags: logon_type=new_credentials logon_flags=netcredentials_only
   vars:
     ansible_become_user: vb
     ansible_become_pass: View
+  #do not deploy to the source server
+  when: ansible_hostname != 'svr01_03' 
   tags:
     - package
-    - electron
+
+# - name: Copy base dir
+#   win_copy:
+#     remote_src: true
+#     src: \\192.168.10.26\ViewBoston\
+#     dest: C:\ViewBoston
+#   become: true
+#   become_method: runas
+#   become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+#   vars:
+#     ansible_become_user: vb
+#     ansible_become_pass: View
+#   tags:
+#     - package
+#     - electron

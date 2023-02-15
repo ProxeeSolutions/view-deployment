@@ -1,0 +1,20 @@
+# CMS scheduled tasks
+# 
+- name: Create a scheduled task launch VLC fullscreen on startup
+  community.windows.win_scheduled_task:
+    name: Drupal Cron Job
+    vars:
+      CRON_KEY: QWLFjrszDHBBrnoVZVtGOOG8raZF301Rb60pgLRm_3ZKVrSMAACSTCis_8nizEFwQUsrxVR4iQ
+    description: Daily Drupal Sync
+    actions:
+      - path: 'C:\Program Files (x86)\GnuWin32\bin\wget.exe'
+        arguments: 
+          --quiet
+          "https://127.0.0.1/cron/{{ CRON_KEY }}"
+    triggers:
+      - type: daily
+        start_boundary: '2022-01-01T09:00:00'
+    username: SYSTEM
+    runlevel: highest
+    state: present
+    enabled: yes

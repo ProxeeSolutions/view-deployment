@@ -26,6 +26,7 @@ ELECTRON:
     cpu05_10: virtual_viewer_9
     cpu05_11: virtual_viewer_10
   ROUTE: /virtual-viewer
+  CMS_API_ROOT: http://192.168.10.24
 
 MONITORING:
   REMOTE_MONITORING_URL: 192.168.10.26:3510
@@ -40,3 +41,18 @@ MONITORING:
     cpu05_09: G11-08
     cpu05_10: G11-09
     cpu05_11: G11-10
+
+AUDIO_VOLUME: 50
+
+ROTARY:
+  CalibrationOffset:
+    cpu05_02: 0
+    cpu05_03: 0
+    cpu05_04: 0
+    cpu05_05: 0
+    cpu05_06: 0
+    cpu05_07: 0
+    cpu05_08: 0
+    cpu05_09: 0
+    cpu05_10: 0
+    cpu05_11: 0

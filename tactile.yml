@@ -8,6 +8,5 @@
     - videolan
     - tactile_model_controller
     - omron_camera_processor
-    - request_cacher
     - osc_emulator
   tasks:

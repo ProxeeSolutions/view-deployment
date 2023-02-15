@@ -1,3 +1,5 @@
 ---
 # Variables for the 'test' group
 view_win_base_path: 'C:\ViewBoston'
+
+AUDIO_VOLUME: 50

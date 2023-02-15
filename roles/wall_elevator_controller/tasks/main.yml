@@ -1,0 +1,7 @@
+---
+# Playbook to setup wall and elevator controller
+- name: Import subtasks task
+  include_tasks: "{{ item }}"
+  loop:
+    - deploy-wall-controller.yml
+    - firewall-wall-elevator.yml

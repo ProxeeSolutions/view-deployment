@@ -1,2 +1,6 @@
 ---
 # Playbook to setup rotary encoder processor
+- name: Import subtasks task
+  include_tasks: "{{ item }}"
+  loop:
+    - deploy-rotary-encoder.yml

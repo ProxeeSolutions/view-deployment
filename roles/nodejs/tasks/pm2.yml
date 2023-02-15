@@ -4,11 +4,16 @@
   ansible.windows.win_shell: 'C:\Users\VB\AppData\Roaming\npm\pm2.cmd start {{ pm2_config_file }}'
   args:
     chdir: C:\ViewBoston\Utils
+  async: 10
+  ignore_errors: true
 
 - name: Save configuration for PM2
   ansible.windows.win_shell: 'C:\Users\VB\AppData\Roaming\npm\pm2.cmd save'
   args:
     chdir: C:\ViewBoston\Utils
+  async: 10
+  ignore_errors: true
+  
 - name: Create batch file
   ansible.windows.win_copy:
     dest: C:\ViewBoston\Utils\start-pm2.bat

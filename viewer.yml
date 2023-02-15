@@ -9,3 +9,4 @@
     - omron_camera_processor
     - request_cacher
     - osc_emulator
+    - rotary_encoder_processor

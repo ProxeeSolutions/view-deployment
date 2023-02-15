@@ -20,6 +20,7 @@ ELECTRON:
     cpu05_24: discover_boston_13
     cpu05_25: discover_boston_14
   ROUTE: /discover-boston
+  CMS_API_ROOT: http://192.168.10.24
   
 MONITORING:
   REMOTE_MONITORING_URL: 192.168.10.26:3510
@@ -56,8 +57,6 @@ OMRONCAMERA:
     cpu05_24: 192.168.11.37
     cpu05_25: 192.168.11.38
 
-    
-#"DISCOVER_BOSTON_APP_SOURCE={{ interactive_var_vals[DISCOVER_BOSTON_APP_SOURCE[inventory_hostname]] }}"
-
-#PM2 Vars
 pm2_config_file: discoverboston.config.js
+
+AUDIO_VOLUME: 50

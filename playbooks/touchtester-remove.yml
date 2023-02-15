@@ -1,0 +1,21 @@
+---
+- hosts: touchscreen
+  tasks:
+  - name: Remove a scheduled task launch Touchtest
+    community.windows.win_scheduled_task:
+      name: Touchtester
+      description: Start Touchtester
+      actions:
+        - path: 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
+          arguments: 
+            --kiosk C:\ViewBoston\Misc\Tools\touchtester.html
+            --edge-kiosk-type=fullscreen
+      triggers:
+      - type: logon
+      username: vb
+      runlevel: highest
+      state: absent
+
+
+  # - name: Reboot the machine with all defaults
+  #   ansible.windows.win_reboot:

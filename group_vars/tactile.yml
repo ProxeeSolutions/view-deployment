@@ -18,3 +18,5 @@ TACTILECONTROLLER:
     cpu02_03: "43,37,39"
     cpu02_04: "44,41,40"
     cpu02_05: "46,175"
+
+AUDIO_VOLUME: 50

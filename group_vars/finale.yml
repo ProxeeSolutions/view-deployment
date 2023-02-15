@@ -30,6 +30,7 @@ ELECTRON:
     cpu05_35: finale_10
     cpu05_36: finale_11
     cpu05_37: finale_12
+  CMS_API_ROOT: http://192.168.10.24
 
 MONITORING:
   REMOTE_MONITORING_URL: 192.168.10.26:3510
@@ -46,3 +47,5 @@ MONITORING:
     cpu05_35: S20-10
     cpu05_36: S20-11
     cpu05_37: S20-12
+
+AUDIO_VOLUME: 50

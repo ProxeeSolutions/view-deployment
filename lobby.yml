@@ -4,3 +4,4 @@
     - lobby
   roles:
     - common
+    - lobby

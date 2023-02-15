@@ -50,7 +50,20 @@
     - configuration
     - electron
 
-
+# Configuration for electron
+# CMS_API_ROOT=http://192.168.10.27
+- name: modify configuration per hosts
+  community.windows.win_lineinfile:
+    path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+    regex: '^CMS_API_ROOT='
+    state: present
+    backup: true
+    create: true
+    line: "CMS_API_ROOT={{ ELECTRON.CMS_API_ROOT }}"
+  register: lineresult
+  tags:
+    - configuration
+    - electron
 
 
 - name: modify route configuration
@@ -130,3 +143,5 @@
   tags:
     - configuration
     - electron
+
+

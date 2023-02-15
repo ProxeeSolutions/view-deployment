@@ -9,11 +9,14 @@
       tags:
         - package
 
+
+    #TODO: refactor with Robocopy
     - name: Copy base dir with cache
       win_copy:
         remote_src: true
         src: \\192.168.10.26\ViewBoston\Utils\RequestCacher\
         dest: C:\ViewBoston\Utils\RequestCacher\
+      when: inventory_hostname != svr01_03 #Exclude the source of files
       become: true
       become_method: runas
       become_flags: logon_type=new_credentials logon_flags=netcredentials_only

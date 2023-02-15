@@ -4,3 +4,4 @@
   include_tasks: "{{ item }}"
   loop:
     - firewall-cms.yml
+    - deploy-cms.yml

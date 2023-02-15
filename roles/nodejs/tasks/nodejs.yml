@@ -1,13 +1,24 @@
 # This task install nodejs from Chocolatey
-- name: Ensure nodejs is installed through Chocolatey
-  win_chocolatey:
-    name: nodejs
-    state: present
 
+- name: Install NodeJS via electron
+  throttle: 1
+  block: 
+  - name: Ensure nodejs is installed through Chocolatey
+    win_chocolatey:
+      name: nodejs
+      state: present
+    throttle: 1
+    notify: restart-computer
+
+  - name: Sleep for 3 seconds for Chocolatey Rate-Limits respect
+    ansible.builtin.wait_for:
+      timeout: 3
+    delegate_to: localhost
 
 #Install PM2
 - name: Install "PM2" node.js package globally.
   win_shell: npm install pm2 -g
 
+#Apply reboot handler if needed
+- meta: flush_handlers
 
-  

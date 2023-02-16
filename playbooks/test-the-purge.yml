@@ -1,0 +1,33 @@
+# stop cacher
+# purge dir
+# purge db
+# push new config
+# reboot stations
+
+- hosts: all,!cms,!storage,!videoserver
+  tasks:
+    # STOP ELECTRON
+    - name: Stop ViewBoston Process
+      win_shell:  Stop-Process -Name "ViewBoston"
+      ignore_errors: true    
+    - name: Stop the Request-Cacher
+      win_shell: 'C:\Users\VB\AppData\Roaming\npm\pm2.cmd stop Cacher'
+    - name: Delete cached files
+      ansible.windows.win_file:
+        path: C:\ViewBoston\Util\RequestCacher\public
+        state: absent
+    - name: Delete cached db.dbjson
+      ansible.windows.win_file:
+        path: C:\ViewBoston\Util\RequestCacher\db.dbjson
+        state: absent
+
+
+
+
+  # - name: Truncate _cache_ tables
+  #   mysql_query:
+  #   login_db: replication
+  #   query: SELECT * FROM test WHERE id = %(id_val)s AND story = %(story_val)s
+  #   named_args:
+  #     id_val: 1
+  #     story_val: test

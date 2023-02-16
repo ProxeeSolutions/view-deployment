@@ -20,3 +20,5 @@ TACTILECONTROLLER:
     cpu02_05: "46,175"
 
 AUDIO_VOLUME: 50
+
+CMS_API_ROOT: http://vbcms.local

@@ -16,7 +16,7 @@ ELECTRON:
     cpu02_11: theatre_poster_4
     cpu02_12: theatre_poster_5
   ROUTE: /theater-poster
-  CMS_API_ROOT: http://192.168.10.24
+  CMS_API_ROOT: http://vbcms.local
 
 MONITORING:
   REMOTE_MONITORING_URL: 192.168.10.26:3510

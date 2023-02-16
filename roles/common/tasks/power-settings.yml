@@ -2,8 +2,8 @@
 # This playbook configures the windows computer to not sleep
 - name: Change power plan to high performance
   community.windows.win_power_plan:
-    #name: high performance
-    name: balanced
+    name: high performance
+    #name: balanced
   tags:
         - configuration
 - name: Set display timeout to disabled

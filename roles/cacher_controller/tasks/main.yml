@@ -4,3 +4,6 @@
   include_tasks: "{{ item }}"
   loop:
     - firewall-cacher.yml
+    - deploy-cacher-controller.yml
+  tags:
+    - cacher_controller

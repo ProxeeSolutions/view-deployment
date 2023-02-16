@@ -1,0 +1,143 @@
+- name: Copy files for Cacher Controller
+  ansible.windows.win_copy:
+    remote_src: true
+    src: C:\ViewBoston\Utils\CacherController\
+    dest: 'C:\ViewBoston\Utils\CacherController{{ cacher }}\'
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  loop: 
+    - G11
+    - M00
+    - N00
+    - S20
+  loop_control:
+    loop_var: cacher
+    label: "Copying Cacher Controller {{ cacher }}"
+  tags:
+    - cacher_controller
+
+- name: Create empty Cacher Controller .env
+  ansible.windows.win_file:
+    path: 'C:\ViewBoston\Utils\CacherController{{ file }}\.env'
+    state: touch
+  loop: 
+    - G11
+    - M00
+    - N00
+    - S20
+  loop_control:
+    loop_var: file
+    label: "Setting .env for Cacher Controller {{ file }}"
+  tags:
+    - cacher_controller
+
+- name: modify HTTP_PORT per cacher
+  community.windows.win_lineinfile:
+    path: 'C:\ViewBoston\Utils\CacherController{{ http.id }}\.env'
+    regex: '^HTTP_PORT='
+    state: present
+    backup: false
+    create: true
+    line: "HTTP_PORT={{ http.http_port }}"
+  loop:
+    - id: G11
+      http_port: 3410
+    - id: M00
+      http_port: 3420
+    - id: N00
+      http_port: 3430
+    - id: S20
+      http_port: 3440
+  loop_control:
+    loop_var: http
+    label: "Setting HTTP_PORT for Cacher Controller {{ http.id }}"
+  tags:
+    - cacher_controller
+
+- name: modify HTTPS_PORT per cacher
+  community.windows.win_lineinfile:
+    path: 'C:\ViewBoston\Utils\CacherController{{ https.id }}\.env'
+    regex: '^HTTPS_PORT='
+    state: present
+    backup: false
+    create: true
+    line: "HTTPS_PORT={{ https.https_port }}"
+  loop:
+    - id: G11
+      https_port: 3411
+    - id: M00
+      https_port: 3421
+    - id: N00
+      https_port: 3431
+    - id: S20
+      https_port: 3441
+  loop_control:
+    loop_var: https
+    label: "Setting HTTP_PORT for Cacher Controller {{ https.id }}"
+  tags:
+    - cacher_controller
+
+- name: modify CACHERS_URLS per cacher
+  community.windows.win_lineinfile:
+    path: 'C:\ViewBoston\Utils\CacherController{{ cachers.id }}\.env'
+    regex: '^CACHERS_URLS='
+    state: present
+    backup: true
+    create: true
+    line: "CACHERS_URLS={{ cachers.cachers_urls }}"
+  loop:
+    - id: G11
+      cachers_urls: "192.168.10.191:3200,192.168.10.192:3200,192.168.10.193:3200,192.168.10.194:3200,192.168.10.195:3200,192.168.10.196:3200,192.168.10.197:3200,192.168.10.198:3200,192.168.10.199:3200,192.168.10.200:3200"
+    - id: M00
+      cachers_urls: "192.168.10.201:3200,192.168.10.202:3200,192.168.10.203:3200,192.168.10.204:3200,192.168.10.205:3200,192.168.10.206:3200,192.168.10.207:3200,192.168.10.208:3200,192.168.10.209:3200,192.168.10.210:3200,192.168.10.211:3200,192.168.10.212:3200,192.168.10.213:3200,192.168.10.214:3200"
+    - id: N00
+      cachers_urls: "192.168.10.186:3200,192.168.10.187:3200,192.168.10.188:3200,192.168.10.189:3200,192.168.10.190:3200"
+    - id: S20
+      cachers_urls: "192.168.10.215:3200,192.168.10.216:3200,192.168.10.217:3200,192.168.10.218:3200,192.168.10.219:3200,192.168.10.220:3200,192.168.10.221:3200,192.168.10.222:3200,192.168.10.223:3200,192.168.10.224:3200,192.168.10.225:3200,192.168.10.226:3200"
+  loop_control:
+    loop_var: cachers
+    label: "Setting CACHERS_URLS for Cacher Controller {{ cachers.id }}"
+  tags:
+    - cacher_controller
+
+
+- name: Delete package-lock.json
+  ansible.windows.win_file:
+    path: C:\ViewBoston\Utils\CacherController{{id}}\package-lock.json
+    state: absent
+  tags:
+    - cacher_controller
+  loop: 
+    - G11
+    - M00
+    - N00
+    - S20
+  loop_control:
+    loop_var: id
+    label: "Removing package-lock.json for Cacher Controller {{ id }}"
+
+
+- name: Install npm packages
+  ansible.windows.win_shell: 'npm i'
+  args:
+    chdir: C:\ViewBoston\Utils\CacherController{{id}}
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  tags:
+    - cacher_controller
+  loop: 
+    - G11
+    - M00
+    - N00
+    - S20
+  loop_control:
+    loop_var: id
+    label: "Setting node packages for Cacher Controller {{ id }}"

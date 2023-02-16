@@ -1,0 +1,123 @@
+
+
+
+- name: Copy files for Remote Monitor
+  ansible.windows.win_copy:
+    remote_src: true
+    src: C:\ViewBoston\Utils\RemoteMonitor\
+    dest: 'C:\ViewBoston\Utils\RemoteMonitor{{ cacher }}\'
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  loop: 
+    - G11
+    - M00
+    - N00
+    - S20
+  loop_control:
+    loop_var: cacher
+    label: "Copying Remote Monitor {{ cacher }}"
+  tags:
+    - remote_monitor
+
+- name: Create empty Remote Monitor .env
+  ansible.windows.win_file:
+    path: 'C:\ViewBoston\Utils\RemoteMonitor{{ file }}\.env'
+    state: touch
+  loop: 
+    - G11
+    - M00
+    - N00
+    - S20
+  loop_control:
+    loop_var: file
+    label: "Setting .env for Remote Monitor {{ file }}"
+  tags:
+    - remote_monitor
+
+- name: modify HTTP_PORT per Remote Monitor
+  community.windows.win_lineinfile:
+    path: 'C:\ViewBoston\Utils\RemoteMonitor{{ http.id }}\.env'
+    regex: '^HTTP_PORT='
+    state: present
+    backup: true
+    create: true
+    line: "HTTP_PORT={{ http.http_port }}"
+  loop:
+    - id: G11
+      http_port: 3510
+    - id: M00
+      http_port: 3520
+    - id: N00
+      http_port: 3530
+    - id: S20
+      http_port: 3540
+  loop_control:
+    loop_var: http
+    label: "Setting HTTP_PORT for Remote Monitor{{ http.id }}"
+  tags:
+    - remote_monitor
+
+- name: modify HTTPS_PORT per Remote Monitor
+  community.windows.win_lineinfile:
+    path: 'C:\ViewBoston\Utils\RemoteMonitor{{ https.id }}\.env'
+    regex: '^HTTPS_PORT='
+    state: present
+    backup: true
+    create: true
+    line: "HTTPS_PORT={{ https.https_port }}"
+  loop:
+    - id: G11
+      https_port: 3511
+    - id: M00
+      https_port: 3521
+    - id: N00
+      https_port: 3531
+    - id: S20
+      https_port: 3541
+  loop_control:
+    loop_var: https
+    label: "Setting HTTP_PORT for Remote Monitor {{ https.id }}"
+  tags:
+    - remote_monitor
+
+- name: Delete package-lock.json
+  ansible.windows.win_file:
+    path: C:\ViewBoston\Utils\RemoteMonitor{{id}}\package-lock.json
+    state: absent
+  tags:
+    - remote_monitor
+  loop: 
+    - G11
+    - M00
+    - N00
+    - S20
+  loop_control:
+    loop_var: id
+    label: "Removing package-lock.json for Remote Monitor {{ id }}"
+
+
+
+- name: Install npm packages
+  ansible.windows.win_shell: 'npm i'
+  args:
+    chdir: C:\ViewBoston\Utils\RemoteMonitor{{id}}
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  loop: 
+    - G11
+    - M00
+    - N00
+    - S20
+  loop_control:
+    loop_var: id
+    label: "Setting node packages for Remote Monitor {{ id }}"
+  tags:
+    - remote_monitor

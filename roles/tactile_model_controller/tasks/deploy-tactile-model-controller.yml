@@ -22,7 +22,7 @@
 
 
 # Configuration for tactile
-- name: modify configuration per hosts
+- name: modify CMS_SCAN_SOURCE configuration per hosts
   community.windows.win_lineinfile:
     path: C:\ViewBoston\Utils\TactileModelController\.env
     regex: '^CMS_SCAN_SOURCE='
@@ -35,7 +35,7 @@
     - configuration
     - electron
 
-- name: modify configuration per hosts
+- name: modify LANDMARKS configuration per hosts
   community.windows.win_lineinfile:
     path: C:\ViewBoston\Utils\TactileModelController\.env
     regex: '^LANDMARKS='
@@ -47,3 +47,17 @@
   tags:
     - configuration
     - electron
+
+- name: modify CMS_API_ROOT configuration per hosts
+  community.windows.win_lineinfile:
+    path: C:\ViewBoston\Utils\TactileModelController\.env
+    regex: '^CMS_API_ROOT='
+    state: present
+    backup: true
+    create: true
+    line: "CMS_API_ROOT={{ CMS_API_ROOT }}"
+  register: lineresult
+  tags:
+    - configuration
+    - electron
+

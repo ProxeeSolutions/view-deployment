@@ -26,7 +26,7 @@ ELECTRON:
     cpu05_10: virtual_viewer_9
     cpu05_11: virtual_viewer_10
   ROUTE: /virtual-viewer
-  CMS_API_ROOT: http://192.168.10.24
+  CMS_API_ROOT: http://vbcms.local
 
 MONITORING:
   REMOTE_MONITORING_URL: 192.168.10.26:3510

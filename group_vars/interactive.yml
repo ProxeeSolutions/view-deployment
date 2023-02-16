@@ -20,7 +20,7 @@ ELECTRON:
     cpu05_24: discover_boston_13
     cpu05_25: discover_boston_14
   ROUTE: /discover-boston
-  CMS_API_ROOT: http://192.168.10.24
+  CMS_API_ROOT: http://vbcms.local
   
 MONITORING:
   REMOTE_MONITORING_URL: 192.168.10.26:3510

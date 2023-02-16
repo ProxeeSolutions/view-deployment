@@ -9,3 +9,5 @@
     profiles: domain,private,public
     state: present
     enabled: yes
+  tags:
+    - cacher_controller

@@ -1,0 +1,35 @@
+---
+# This task install google chrome from Chocolatey
+- hosts: all
+  tasks:
+  - name: Install Google Chrome via Chocolatey
+    win_chocolatey:
+      name: googlechrome
+      state: present
+    throttle: 1
+
+
+  - name: Copy debug config file
+    win_copy:
+      remote_src: true
+      src: \\192.168.10.26\ViewBoston\Electron\_config\google_app_credentials.json
+      dest: C:\Users\VB\AppData\Local\Programs\viewboston\
+    when: inventory_hostname != 'svr01_03' #Exclude the source of files
+    become: true
+    become_method: runas
+    become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+    vars:
+      ansible_become_user: vb
+      ansible_become_pass: View
+  - name: Copy debug batch file
+    win_copy:
+      remote_src: true
+      src: \\192.168.10.26\ViewBoston\Electron\_config\rundebug.bat
+      dest: C:\Users\VB\AppData\Local\Programs\viewboston\
+    when: inventory_hostname != 'svr01_03' #Exclude the source of files
+    become: true
+    become_method: runas
+    become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+    vars:
+      ansible_become_user: vb
+      ansible_become_pass: View

@@ -1,2 +1,9 @@
 ---
 # Playbook to setup remote monitor
+- name: Import subtasks task
+  include_tasks: "{{ item }}"
+  loop:
+    - firewall-remote-monitor.yml
+    - deploy-remote-monitor.yml
+  tags:
+    - remote_monitor

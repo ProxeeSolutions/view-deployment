@@ -1,0 +1,11 @@
+---
+# This task install DBeaver from Chocolatey
+- hosts: storage
+  tasks:
+  - name: Install DBeaver via Chocolatey
+    win_chocolatey:
+      name: dbeaver
+      state: present
+    throttle: 1
+
+

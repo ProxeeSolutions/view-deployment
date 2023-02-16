@@ -19,24 +19,24 @@
 
 
 
-  # - name: Run tasks/other.yaml instead of 'main'
-  #   ansible.builtin.include_role:
-  #     name: common
-  #     #tasks_from: autologon.yml
-  #     #tasks_from:  background.yml
-  #     #tasks_from:  base-softwares.yml
-  #     #tasks_from:  deploy-base-dir.yml
-  #     #tasks_from:  file-extensions.yml
-  #     #tasks_from:  netbox-collect.yml
-  #     #tasks_from:  notifications.yml
-  #     tasks_from:  power-settings.yml
-  #     #tasks_from:  set-hostname.yml
-  #     #tasks_from:  set-volume.yml
-  #     #tasks_from:  touchscreen.yml
-  #     #tasks_from:  winrm-set-auto.yml
-
-
   - name: Run tasks/other.yaml instead of 'main'
     ansible.builtin.include_role:
-      name: electron_app
-      tasks_from: install-electron
+      name: common
+      #tasks_from: autologon.yml
+      #tasks_from:  background.yml
+      #tasks_from:  base-softwares.yml
+      #tasks_from:  deploy-base-dir.yml
+      #tasks_from:  file-extensions.yml
+      #tasks_from:  netbox-collect.yml
+      #tasks_from:  notifications.yml
+      tasks_from:  power-settings.yml
+      #tasks_from:  set-hostname.yml
+      #tasks_from:  set-volume.yml
+      #tasks_from:  touchscreen.yml
+      #tasks_from:  winrm-set-auto.yml
+
+
+  # - name: Run tasks/other.yaml instead of 'main'
+  #   ansible.builtin.include_role:
+  #     name: electron_app
+  #     tasks_from: install-electron

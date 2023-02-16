@@ -1,0 +1,37 @@
+- hosts: cms
+  tasks:
+  - name: Select query to test_db with named_args
+    mysql_query:
+    login_db: test_db
+    query: SELECT * FROM test WHERE id = %(id_val)s AND story = %(story_val)s
+    named_args:
+      id_val: 1
+      story_val: test
+
+
+
+# Set BIND ADDRESS
+# Set Replication Master
+# Enable logbin
+## log-bin=mysql-bin
+# binlog_do_db          = include_database_name
+# binlog_do_db          = db
+# binlog_do_db          = db_1
+# binlog_do_db          = db_2
+# Create replica user
+# CREATE USER 'replica_user'@'replica_server_ip' IDENTIFIED WITH mysql_native_password BY 'password';
+# GRANT REPLICATION SLAVE ON *.* TO 'replica_user'@'replica_server_ip';
+# FLUSH PRIVILEGES;
+
+
+# Set Replication Slave
+## comment out server-id
+
+# Send MySQL Commands
+
+# CHANGE MASTER TO MASTER_HOST=192.168.10.24, MASTER_PORT=3306, 
+# MASTER_USER=%replication_user%, MASTER_PASSWORD=%replication_password% ;
+
+# Restart MySQL Server
+# C:\xampp\xampp_stop.exe
+# C:\xampp\xampp_start.exe

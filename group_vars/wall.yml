@@ -1,3 +1,5 @@
 pm2_config_file: finalewall.config.js
 
 AUDIO_VOLUME: 50
+
+CMS_API_ROOT: https://vbcms.local/api/get/content

@@ -50,6 +50,21 @@
     - configuration
     - electron
 
+- name: Copy debug launcher file
+  win_copy:
+    remote_src: true
+    src: \\192.168.10.26\ViewBoston\Electron\_config\rundebug.bat
+    dest: C:\Users\VB\AppData\Local\Programs\viewboston\rundebug.bat
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  tags:
+    - configuration
+    - electron
+
 # Configuration for electron
 # CMS_API_ROOT=http://192.168.10.27
 - name: modify configuration per hosts

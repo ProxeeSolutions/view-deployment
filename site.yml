@@ -2,8 +2,6 @@
 # Playbook for all systems deployment
 - hosts: all
   tasks:
-    - name: Load Vault variables
-      include_vars: vault.yml
 - import_playbook: storage.yml
 - import_playbook: cms.yml
 - import_playbook: elevator.yml

@@ -1,10 +1,13 @@
 # CMS scheduled tasks
 # 
-- name: Create a scheduled task launch VLC fullscreen on startup
+- debug:
+    msg: "{{ netbox_api_token }}"
+  tags:
+   - cms
+- name: Create a scheduled task for Drupal daily synchronization
+  # schtasks /create /tn "Drupal Cron Job" /tr "'C:\Program Files (x86)\GnuWin32\bin\wget.exe' --quiet https://127.0.0.1/cron/{CRON_KEY}" /sc daily /mo 1 /ri 60 /ru SYSTEM /DU 24:00
   community.windows.win_scheduled_task:
     name: Drupal Cron Job
-    vars:
-      CRON_KEY: QWLFjrszDHBBrnoVZVtGOOG8raZF301Rb60pgLRm_3ZKVrSMAACSTCis_8nizEFwQUsrxVR4iQ
     description: Daily Drupal Sync
     actions:
       - path: 'C:\Program Files (x86)\GnuWin32\bin\wget.exe'
@@ -13,8 +16,75 @@
           "https://127.0.0.1/cron/{{ CRON_KEY }}"
     triggers:
       - type: daily
+        start_boundary: '2022-01-01T23:00:00'
+        repetition:
+          interval: PT60M
+          duration: PT24H
+          stop_at_duration_end: yes
+    username: SYSTEM
+    runlevel: highest
+    state: present
+    enabled: yes
+  tags:
+    - cms
+
+
+- name: Create a scheduled task for Drupal hourly tickets synchronization
+  # schtasks /create /tn "Drupal Tickets Sync" /tr "'C:\Program Files (x86)\GnuWin32\bin\wget.exe' --quiet http://127.0.0.1/api/sync/tickets" /sc daily /mo 1 /ru SYSTEM
+  community.windows.win_scheduled_task:
+    name: Drupal Tickets Sync
+    description: Daily Drupal Tickets Sync
+    actions:
+      - path: 'C:\Program Files (x86)\GnuWin32\bin\wget.exe'
+        arguments: 
+          --quiet
+          "http://127.0.0.1/api/sync/tickets"
+    triggers:
+      - type: daily
+        start_boundary: '2022-01-01T08:00:00'
+    username: SYSTEM
+    runlevel: highest
+    state: present
+    enabled: yes
+  tags:
+    - cms
+
+- name: Create a scheduled task for Drupal hourly landmarks synchronization
+  # schtasks /create /tn "Drupal Landmarks Sync" /tr "'C:\Program Files (x86)\GnuWin32\bin\wget.exe' --quiet http://127.0.0.1/api/sync/landmarks" /sc daily /mo 1 /ru SYSTEM  community.windows.win_scheduled_task:
+  community.windows.win_scheduled_task:
+    name: Drupal Landmarks Sync
+    description: Daily Drupal Landmarks Sync
+    actions:
+      - path: 'C:\Program Files (x86)\GnuWin32\bin\wget.exe'
+        arguments: 
+          --quiet
+          "http://127.0.0.1/api/sync/landmarks"
+    triggers:
+      - type: daily
+        start_boundary: '2022-01-01T08:30:00'
+    username: SYSTEM
+    runlevel: highest
+    state: present
+    enabled: yes
+  tags:
+    - cms
+
+- name: Create a scheduled task for Drupal hourly landmarks synchronization
+  # schtasks /create /tn "Drupal Selfies Sync" /tr "'C:\Program Files (x86)\GnuWin32\bin\wget.exe' --quiet http://127.0.0.1/api/sync/selfies" /sc daily /mo 1 /ru SYSTEM
+  community.windows.win_scheduled_task:
+    name: Drupal Selfies Sync
+    description: Daily Drupal Selfies Sync
+    actions:
+      - path: 'C:\Program Files (x86)\GnuWin32\bin\wget.exe'
+        arguments: 
+          --quiet
+          "http://127.0.0.1/api/sync/selfies"
+    triggers:
+      - type: daily
         start_boundary: '2022-01-01T09:00:00'
     username: SYSTEM
     runlevel: highest
     state: present
     enabled: yes
+  tags:
+    - cms

@@ -5,3 +5,5 @@
   loop:
     - firewall-cms.yml
     - deploy-cms.yml
+  tags:
+    - cms

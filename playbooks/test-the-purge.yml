@@ -14,11 +14,11 @@
       win_shell: 'C:\Users\VB\AppData\Roaming\npm\pm2.cmd stop Cacher'
     - name: Delete cached files
       ansible.windows.win_file:
-        path: C:\ViewBoston\Util\RequestCacher\public
+        path: C:\ViewBoston\Utils\RequestCacher\public
         state: absent
     - name: Delete cached db.dbjson
       ansible.windows.win_file:
-        path: C:\ViewBoston\Util\RequestCacher\db.dbjson
+        path: C:\ViewBoston\Utils\RequestCacher\db.dbjson
         state: absent
 
 

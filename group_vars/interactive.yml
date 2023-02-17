@@ -23,22 +23,22 @@ ELECTRON:
   CMS_API_ROOT: http://vbcms.local
   
 MONITORING:
-  REMOTE_MONITORING_URL: 192.168.10.26:3510
+  REMOTE_MONITORING_URL: 192.168.10.26:3520
   MONITORING_SOURCE_NAME:
-    cpu05_12: G11-01
-    cpu05_13: G11-02
-    cpu05_14: G11-03
-    cpu05_15: G11-04
-    cpu05_16: G11-05
-    cpu05_17: G11-06
-    cpu05_18: G11-07
-    cpu05_19: G11-08
-    cpu05_20: G11-09
-    cpu05_21: G11-10
-    cpu05_22: G11-11
-    cpu05_23: G11-12
-    cpu05_24: G11-13
-    cpu05_25: G11-14
+    cpu05_12: M00-01
+    cpu05_13: M00-02
+    cpu05_14: M00-03
+    cpu05_15: M00-04
+    cpu05_16: M00-05
+    cpu05_17: M00-06
+    cpu05_18: M00-07
+    cpu05_19: M00-08
+    cpu05_20: M00-09
+    cpu05_21: M00-10
+    cpu05_22: M00-11
+    cpu05_23: M00-12
+    cpu05_24: M00-13
+    cpu05_25: M00-14
 
 OMRONCAMERA:
   AddresseSource:

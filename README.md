@@ -61,7 +61,7 @@ To issue on-demand command, use the `ansible` command. the `-m win_shell` option
 
     ansible -m win_shell -a '<windows shell command>' <target>
 
-#### Examples
+#### Ad-Hoc Examples
 
 ##### PM2 restart on poster machines
 
@@ -70,3 +70,39 @@ To issue on-demand command, use the `ansible` command. the `-m win_shell` option
 ##### Reboot poster Computers
 
     ansible -m ansible.windows.win_reboot poster
+
+
+
+
+
+### Running playbooks
+
+Running playbooks is the automated way of executing every actions on the machines. It can be run many times and will only process the required tasks to bring the machines to the desired state.
+
+Actions can be filtered by hosts or groups using the `--limit` option like the adphoc command's target option. If unspecified, all hosts in the inventory will be targeted, including the servers.
+
+Actions for the whole site can be found in the `site.yml` playbook, which imports specific sub-playbooks for every group. Tags can also be used to only execute tasks which have been tagged with a particular identifier.
+
+Variables for groups and hosts are specified in the group files (*.yml) under the `group_vars` directory
+
+The command is:
+
+    ansible-playbook <playbook.yml> (optional: --tags: <list of comma-separated tags>) (optional: --limit <comma-separated groups or hosts>)
+
+#### Playbook Examples
+
+Run the playbook for the whole site, setting the proper configuration on every machine:
+
+    ansible-playbook site.yml
+
+Run the playbook only on a specific group:
+
+    ansible-playbook site.yml --limit tactile
+
+Only synchronize files in the `ViewBoston/` directory from the storage server:
+
+    ansible-playbook site.yml --tags sync
+
+Set audio volumes everywhere (volume variable take nfrom the `group_vars` files)
+
+    ansible-playbook site.yml --tags audio

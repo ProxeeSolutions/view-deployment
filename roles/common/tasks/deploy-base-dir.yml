@@ -45,6 +45,7 @@
   tags:
     - package
     - electron
+    - sync
 
 - name: Sync ViewBoston content in recursive mode
   community.windows.win_robocopy:
@@ -66,6 +67,7 @@
   when: ansible_hostname != 'svr01_03' 
   tags:
     - package
+    - sync
 
 # - name: Copy base dir
 #   win_copy:

@@ -1,6 +1,6 @@
 ---
 # This playbook ensure the environment is setup in windows machines for remote management with ansible
-- hosts: test
+- hosts: all
   remote_user: lopimo
   tasks:
   - name: set PowerShell memory allowance to 2GB

@@ -29,9 +29,9 @@
       #tasks_from:  file-extensions.yml
       #tasks_from:  netbox-collect.yml
       #tasks_from:  notifications.yml
-      tasks_from:  power-settings.yml
+      #tasks_from:  power-settings.yml
       #tasks_from:  set-hostname.yml
-      #tasks_from:  set-volume.yml
+      tasks_from:  set-volume.yml
       #tasks_from:  touchscreen.yml
       #tasks_from:  winrm-set-auto.yml
 

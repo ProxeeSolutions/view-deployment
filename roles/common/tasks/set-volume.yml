@@ -3,7 +3,11 @@
   ansible.windows.win_copy:
     src: ../../packages/nircmd.exe
     dest: C:\Windows\system32\
+    tags:
+      - audio
 
 - name: Set Volume with nircmd
   win_shell: "nircmd.exe setsysvolume {{ (AUDIO_VOLUME| int / 100 * 65535) | int  }}"
   when: AUDIO_VOLUME is defined
+  tags:
+    - audio

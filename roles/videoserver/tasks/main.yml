@@ -4,3 +4,4 @@
   include_tasks: "{{ item }}"
   loop:
     - firewall-videoserver.yml
+    - deploy-base-dir.yml

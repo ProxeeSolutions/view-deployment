@@ -18,6 +18,7 @@
 #Install PM2
 - name: Install "PM2" node.js package globally.
   win_shell: npm install pm2 -g
+  when: inventory_hostname != 'dvs06_01'
 
 #Apply reboot handler if needed
 - meta: flush_handlers

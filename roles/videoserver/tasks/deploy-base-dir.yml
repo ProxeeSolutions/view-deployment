@@ -1,0 +1,85 @@
+# - name: Create mapped drive with credentials that do not persist on the next logon
+#   community.windows.win_mapped_drive:
+#     letter: M
+#     path: \\192.168.10.26\ViewBoston\
+#     state: present
+#     username: '{{ ansible_user }}'
+#     password: '{{ ansible_password }}'
+#   become_method: runas
+#   become_user: SYSTEM
+#   tags:
+#     - package
+
+# - name: map PSDrive
+#   win_shell: New-PSDrive -Name "X" -PSProvider "FileSystem" -Root "\\192.168.10.26\ViewBoston" -Persist
+#   tags:
+#     - package
+
+# - name: Checkif the mapped drive exists
+#   ansible.windows.win_stat:
+#     path: X:\
+#   register: "{{register_mapped}}"
+#   tags:
+#     - package
+
+# - name: Output mapped drive
+#   debug:
+#     msg: register_mapped
+#   tags:
+#     - package
+
+# - name: Run Mapped Drive Command
+#   win_shell: net use "X:" "\\192.168.10.26\ViewBoston" /USER:vb "View" /PERSISTENT:YES
+#   register: mappeddrive
+#   when: register_mapped.stat.exists
+#   become: true
+#   become_method: runas
+#   become_user: SYSTEM
+#   tags:
+#     - package
+
+- name: Ensure the directory ViewBoston is present
+  ansible.windows.win_file:
+    path: C:\ViewBoston
+    state: directory
+  tags:
+    - package
+    - electron
+    - sync
+
+- name: Sync ViewBoston content in recursive mode
+  community.windows.win_robocopy:
+    src: \\192.168.10.26\ViewBoston
+    dest: C:\ViewBoston
+    # /E copy subdirectories, even if empty
+    # /MT:32 use multithread
+    # /IT select files with different attributes
+    # /IM select files with different modified dates
+    flags: /E /MT:32 /IT
+  throttle: 5
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  #do not deploy to the source server
+  when: ansible_hostname != 'svr01_03' 
+  tags:
+    - package
+    - sync
+
+# - name: Copy base dir
+#   win_copy:
+#     remote_src: true
+#     src: \\192.168.10.26\ViewBoston\
+#     dest: C:\ViewBoston
+#   become: true
+#   become_method: runas
+#   become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+#   vars:
+#     ansible_become_user: vb
+#     ansible_become_pass: View
+#   tags:
+#     - package
+#     - electron

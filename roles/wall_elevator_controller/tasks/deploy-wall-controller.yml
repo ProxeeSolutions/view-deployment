@@ -22,20 +22,20 @@
 
 
 # Wall Elevator Controller Configuration YAML file
-- name: Set filepath
-  set_fact:
-    wall_elevator_controller_config_path: C:\ViewBoston\Utils\_config\WallElevatorController.yml
-- name: Wall Elevator Controller Config file
-  ansible.builtin.slurp:
-    src: "{{ wall_elevator_controller_config_path }}"
-  register: current_file
-- name: read key/values
-  set_fact:
-    current_payload: "{{ current_file['content'] | b64decode }}"
-- name: append more key/values
-  set_fact:
-    modified_payload: "{{ current_payload | default([]) | combine({ 'cmsAddress': CMS_API_ROOT }) }}"
-- name: write vars back to file
-  ansible.windows.win_copy: 
-    content: "{{ modified_payload | to_nice_json }}" 
-    dest:  "{{ wall_elevator_controller_config_path }}"
+# - name: Set filepath
+#   set_fact:
+#     wall_elevator_controller_config_path: C:\ViewBoston\Utils\_config\WallElevatorController.yml
+# - name: Wall Elevator Controller Config file
+#   ansible.builtin.slurp:
+#     src: "{{ wall_elevator_controller_config_path }}"
+#   register: current_file
+# - name: read key/values
+#   set_fact:
+#     current_payload: "{{ current_file['content'] | b64decode }}"
+# - name: append more key/values
+#   set_fact:
+#     modified_payload: "{{ current_payload | default([]) | combine({ 'cmsAddress': CMS_API_ROOT }) }}"
+# - name: write vars back to file
+#   ansible.windows.win_copy: 
+#     content: "{{ modified_payload | to_nice_json }}" 
+#     dest:  "{{ wall_elevator_controller_config_path }}"

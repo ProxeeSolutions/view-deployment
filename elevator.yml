@@ -3,6 +3,6 @@
 - hosts: 
     - elevator
   roles:
-    - nodejs
     - videoserver
+    - nodejs
     - wall_elevator_controller

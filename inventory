@@ -178,22 +178,22 @@ dvs06_01 ansible_host=192.168.10.178
 
 [elevator]
 #DVS04-01
-dvs04_01 ansible_host=192.168.11.78
+dvs04_01 ansible_host=192.168.10.78
 
 #DVS04-02
-dvs04_02 ansible_host=192.168.11.79
+dvs04_02 ansible_host=192.168.10.79
 
 #DVS04-03
-dvs04_03 ansible_host=192.168.11.80
+dvs04_03 ansible_host=192.168.10.80
 
 #DVS04-04
-dvs04_04 ansible_host=192.168.11.81
+dvs04_04 ansible_host=192.168.10.81
 
 #DVS04-05
-dvs04_05 ansible_host=192.168.11.82
+dvs04_05 ansible_host=192.168.10.82
 
 #DVS04-06
-dvs04_06 ansible_host=192.168.11.83
+dvs04_06 ansible_host=192.168.10.83
 
 [videoserver:children]
 wall

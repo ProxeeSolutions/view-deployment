@@ -1,0 +1,6 @@
+# Add a static entry to hostfiles
+- name: Add 192.168.10.27 as an A record for vbcms.local
+  community.windows.win_hosts:
+    state: present
+    canonical_name: vbcms.local
+    ip_address: 192.168.10.27

@@ -13,6 +13,7 @@
     - background.yml
     - file-extensions.yml
     - set-volume.yml
+    - set-hosts-file.yml
   tags:
     - package
     - configuration

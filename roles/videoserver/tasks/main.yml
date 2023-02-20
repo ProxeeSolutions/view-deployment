@@ -5,3 +5,6 @@
   loop:
     - firewall-videoserver.yml
     - deploy-base-dir.yml
+    - file-extensions.yml
+    - set-hostname.yml
+    - set-hosts-file.yml

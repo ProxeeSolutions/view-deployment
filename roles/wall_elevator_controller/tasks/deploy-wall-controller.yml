@@ -49,7 +49,9 @@
 - name: append more key/values
   set_fact:
     modified_payload: "{{ current_payload | default([]) | combine({ 'finaleWall.seventhSense.address': SEVENTH_SENSE.address[inventory_hostname] }) }}"
+  when: SEVENTH_SENSE.address[inventory_hostname] | d("")
 - name: write vars back to file
   ansible.windows.win_copy: 
     content: "{{ modified_payload | to_nice_json }}" 
     dest:  "{{ wall_elevator_controller_config_path }}"
+  when: SEVENTH_SENSE.address[inventory_hostname] | d("")

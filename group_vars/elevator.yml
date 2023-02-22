@@ -3,3 +3,13 @@ pm2_config_file: elevator.config.js
 AUDIO_VOLUME: 50
 
 CMS_API_ROOT: https://vbcms.local/api/get/content
+
+SEVENTH_SENSE:
+  address:
+    dvs06_01: "192.168.10.178"
+    dvs04_01: "192.168.10.78"
+    dvs04_02: ""
+    dvs04_03: "192.168.10.80"
+    dvs04_04: ""
+    dvs04_05: "192.168.10.82"
+    dvs04_06: ""

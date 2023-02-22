@@ -11,3 +11,4 @@
 - import_playbook: tactile.yml
 - import_playbook: poster.yml
 - import_playbook: lobby.yml
+- import_playbook: viewer.yml

@@ -1,4 +1,4 @@
-#"C:\Program Files\VideoLAN\VLC\vlc.exe" "C:\ViewBoston\Misc\Preshow\_PreShow_Edit_vA_v221209a.mov" --fullscreen --no-mouse-events --loop --no-osd --no-audio --extraintf=http --http-host=0.0.0.0 --http-port=8080 
+#"C:\Program Files\VideoLAN\VLC\vlc.exe" "C:\ViewBoston\Misc\Preshow\__PreShow_Edit_vA_v230220d_2_h265.mp4" --fullscreen --no-mouse-events --loop --no-osd --no-audio --extraintf=http --http-host=0.0.0.0 --http-port=8080 
 #--http-password=vlc
 # This task install vlc from Chocolatey
 - name: Ensure nodejs is installed through Chocolatey
@@ -18,8 +18,8 @@
 - name: Copy config media file
   ansible.windows.win_copy:
     remote_src: true
-    src: \\192.168.10.26\ViewBoston\Misc\Preshow\_PreShow_Edit_vA_v221209a.mov
-    dest: C:\ViewBoston\Misc\Preshow\_PreShow_Edit_vA_v221209a.mov
+    src: \\192.168.10.26\ViewBoston\Misc\Preshow\__PreShow_Edit_vA_v230220d_2_h265.mp4
+    dest: C:\ViewBoston\Misc\Preshow\__PreShow_Edit_vA_v230220d_2_h265.mp4
   become: true
   become_method: runas
   become_flags: logon_type=new_credentials logon_flags=netcredentials_only

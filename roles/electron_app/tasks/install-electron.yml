@@ -7,7 +7,7 @@
 
 - name: Running electron installer
   ansible.windows.win_package:
-    path: C:\ViewBoston\Electron\20230222c_ViewBostonSetup1.0.0.exe
+    path: C:\ViewBoston\Electron\20230223a_ViewBostonSetup1.0.0.exe
     arguments: /quiet /install
     #product_id: '{9AC08E99-230B-47e8-9721-4577B7F124EA}' to validate
     state: present

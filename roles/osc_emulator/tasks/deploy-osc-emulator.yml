@@ -20,7 +20,6 @@
   tags:
     - configuration
 
-
 - name: Delete package-lock.json
   ansible.windows.win_file:
     path: C:\ViewBoston\Utils\OSCEmulator\package-lock.json

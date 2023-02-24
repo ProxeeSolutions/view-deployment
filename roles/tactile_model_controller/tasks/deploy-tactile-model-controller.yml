@@ -1,7 +1,6 @@
-
-- name: Ensure the directory OmronCamera is present
+- name: Ensure the directory TactileModelController is present
   ansible.windows.win_file:
-    path: C:\ViewBoston\Utils\OmronCamera
+    path: C:\ViewBoston\Utils\TactileModelController
     state: directory
   tags:
     - package
@@ -19,7 +18,6 @@
     ansible_become_pass: View
   tags:
     - configuration
-
 
 # Configuration for tactile
 - name: modify CMS_SCAN_SOURCE configuration per hosts
@@ -60,6 +58,24 @@
   tags:
     - configuration
     - electron
+
+- name: Delete package-lock.json
+  ansible.windows.win_file:
+    path: C:\ViewBoston\Utils\TactileModelController\package-lock.json
+    state: absent
+
+- name: Install npm packages
+  ansible.windows.win_shell: 'npm i'
+  args:
+    chdir: C:\ViewBoston\Utils\TactileModelController
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+## TactileModelController is launched by PM2
+
 
 #"C:\Program Files\VideoLAN\VLC\vlc.exe" -I http --extraintf=http --http-host=0.0.0.0 --http-port=8080 --http-password=viewboston
 # This task install vlc from Chocolatey

@@ -36,9 +36,12 @@
     ansible_become_pass: View
 
 #Wall Elevator Controller Configuration YAML file
-- name: Set filepath
+- name: Set base filepath
   set_fact:
-    wall_elevator_controller_config_path: C:\ViewBoston\Utils\_config\WallElevatorController.yml
+    wall_elevator_controller_base_config_path: C:\ViewBoston\Utils\_config\WallElevatorController.yml
+- name: Set output filepath
+  set_fact:
+    wall_elevator_controller_output_config_path: C:\ViewBoston\Utils\WallElevatorControllers\config.yml
 - name: Wall Elevator Controller Config file
   ansible.builtin.slurp:
     src: "{{ wall_elevator_controller_config_path }}"
@@ -53,5 +56,5 @@
 - name: write vars back to file
   ansible.windows.win_copy: 
     content: "{{ modified_payload | to_nice_json }}" 
-    dest:  "{{ wall_elevator_controller_config_path }}"
+    dest:  "{{ wall_elevator_controller_output_config_path }}"
   when: SEVENTH_SENSE.address[inventory_hostname] | d("")

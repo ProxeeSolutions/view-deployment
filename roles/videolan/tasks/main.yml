@@ -1,6 +1,7 @@
 ---
-# Playbook to setup osc emulator
+# Playbook to setup Videolan
 - name: Import subtasks task
   include_tasks: "{{ item }}"
   loop:
     - firewall-videolan.yml
+    - deploy-videolan.yml

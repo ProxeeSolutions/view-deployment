@@ -1,0 +1,70 @@
+#"C:\Program Files\VideoLAN\VLC\vlc.exe" "C:\ViewBoston\Misc\Preshow\__PreShow_Edit_vA_v230220d_2_h265.mp4" --fullscreen --no-mouse-events --loop --no-osd --no-audio --extraintf=http --http-host=0.0.0.0 --http-port=8080 
+#--http-password=vlc
+# This task install vlc from Chocolatey
+# - name: Ensure vlc is installed through Chocolatey
+#   win_chocolatey:
+#     name: vlc
+#     state: present
+#   tags:
+#     - package
+
+- name: Ensure the media directory is present
+  ansible.windows.win_file:
+    path: C:\ViewBoston\Misc\Preshow
+    state: directory
+  tags:
+    - package
+
+- name: Copy media file
+  ansible.windows.win_copy:
+    remote_src: true
+    src: \\192.168.10.26\ViewBoston\Misc\Preshow\_PreShow_Edit_vA_v230221a.mp4
+    dest: C:\ViewBoston\Misc\Preshow\_PreShow_Edit_vA_v230221a.mp4
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  register: copyresult
+  tags:
+    - configuration
+
+- debug:
+    msg: '{{copyresult.dest }}'
+
+##Edit the bat file to point to the correct Mediafile
+# _PreShow_Edit_vA_v230221a.mp4
+#start "" "C:\Program Files\VideoLAN\VLC\vlc.exe" C:\ViewBoston\Misc\Preshow\_PreShow_Edit_vA_v230221a.mp4 --fullscreen --no-mouse-events --loop --no-osd --no-audio --extraintf=http --http-host=0.0.0.0 --http-port=8080
+- name: modify batch file to point to the file media file.
+  community.windows.win_lineinfile:
+    path: 'C:\\ViewBoston\Utils\start-vlc-{{ group_names[0] }}.bat'
+    regex: '^start'
+    state: present
+    backup: true
+    create: true
+    line: 'start "" "C:\Program Files\VideoLAN\VLC\vlc.exe" {{copyresult.dest }} --fullscreen --no-mouse-events --loop --no-osd --no-audio --extraintf=http --http-host=0.0.0.0 --http-port=8080"'
+  register: lineresult
+
+- name: modify batch file to call focus script.
+  community.windows.win_lineinfile:
+    path: 'C:\\ViewBoston\Utils\start-vlc-{{ group_names[0] }}.bat'
+    regex: '^powershell'
+    state: present
+    backup: true
+    create: true
+    line: 'powershell.exe -Command "$process=(get-process cmd | Select-Object Id ).Id;$wshell = New-Object -ComObject wscript.shell; $wshell.AppActivate($process)"'
+    register: lineresult
+
+# - name: Create a scheduled task launch VLC fullscreen on startup
+#   community.windows.win_scheduled_task:
+#     name: VLC
+#     description: Start VLC
+#     actions:
+#       - path: C:\ViewBoston\Utils\start-vlc.bat
+#     triggers:
+#     - type: logon
+#     username: vb
+#     runlevel: highest
+#     state: present
+#     enabled: yes

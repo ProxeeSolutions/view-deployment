@@ -1,0 +1,81 @@
+
+---
+# task for wall and elevator controller configuration
+- hosts: test
+  tasks:
+
+  # - name: Copy config file for Wall Elevator Controller
+  #   ansible.windows.win_copy:
+  #     #remote_src: true
+  #     src:  ViewBoston/
+  #     dest: C:\ViewBoston\
+  #   become: true
+  #   become_method: runas
+  #   become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  #   vars:
+  #     ansible_become_user: vb
+  #     ansible_become_pass: View
+
+
+  # - name: Ensure the directory WallElevatorController is present
+  #   ansible.windows.win_file:
+  #     path: C:\ViewBoston\Utils\WallElevatorControllers
+  #     state: directory
+  #   tags:
+  #     - configuration
+
+  # - name: Copy config file for Wall Elevator Controller
+  #   ansible.windows.win_copy:
+  #     #remote_src: true
+  #     src:  ViewBoston/Utils/_config/WallElevatorController.yml
+  #     dest: C:\ViewBoston\Utils\WallElevatorControllers\config.yml
+  #   become: true
+  #   become_method: runas
+  #   become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  #   vars:
+  #     ansible_become_user: vb
+  #     ansible_become_pass: View
+  #   tags:
+  #     - configuration
+  # - name: Delete package-lock.json
+  #   ansible.windows.win_file:
+  #     path: C:\ViewBoston\Utils\WallElevatorControllers\package-lock.json
+  #     state: absent
+
+  # - name: Install npm packages
+  #   ansible.windows.win_shell: 'npm i'
+  #   args:
+  #     chdir: C:\ViewBoston\Utils\WallElevatorControllers
+  #   become: true
+  #   become_method: runas
+  #   become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  #   vars:
+  #     ansible_become_user: vb
+  #     ansible_become_pass: View
+
+  #Wall Elevator Controller Configuration YAML file
+  - debug:
+      msg: "{{ SEVENTH_SENSE.address[inventory_hostname] }}"
+
+  - name: Set input filepath
+    set_fact:
+      wall_elevator_controller_config_path: C:\ViewBoston\Utils\_config\WallElevatorController.yml
+  - name: Set output filepath
+    set_fact:
+      wall_elevator_controller_config_path: C:\ViewBoston\Utils\WallElevatorControllers\config.yml
+  - name: Wall Elevator Controller Config file
+    ansible.builtin.slurp:
+      src: "{{ wall_elevator_controller_config_path }}"
+    register: current_file
+  - name: read key/values
+    set_fact:
+      current_payload: "{{ current_file['content'] | b64decode }}"
+  - name: append more key/values
+    set_fact:
+      modified_payload: "{{ current_payload | from_yaml | default([]) | combine({ 'finaleWall':{'seventhSense': {'address': SEVENTH_SENSE.address[inventory_hostname]} } }) }}"
+    when: SEVENTH_SENSE.address[inventory_hostname] | d("")
+  - name: write vars back to file
+    ansible.windows.win_copy: 
+      content: "{{ modified_payload | to_nice_json }}" 
+      dest:  "{{ wall_elevator_controller_config_path }}"
+    when: SEVENTH_SENSE.address[inventory_hostname] | d("")

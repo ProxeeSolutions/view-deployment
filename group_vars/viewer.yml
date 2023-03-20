@@ -42,7 +42,7 @@ MONITORING:
     cpu05_10: G11-09
     cpu05_11: G11-10
 
-AUDIO_VOLUME: 50
+AUDIO_VOLUME: 10 # 7000/65536
 
 ROTARY:
   CalibrationOffset:

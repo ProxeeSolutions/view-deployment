@@ -12,7 +12,7 @@ finale
 
 [test]
 #vmware ansible_host=192.168.236.183
-#vagrant_test ansible_host=192.168.236.218
+vagrant_test ansible_host=192.168.236.218 
 
 
 
@@ -178,22 +178,22 @@ dvs06_01 ansible_host=192.168.10.178
 
 [elevator]
 #DVS04-01
-dvs04_01 ansible_host=192.168.10.78
+dvs04_01 ansible_host=192.168.11.78
 
 #DVS04-02
-dvs04_02 ansible_host=192.168.10.79
+dvs04_02 ansible_host=192.168.11.79
 
 #DVS04-03
-dvs04_03 ansible_host=192.168.10.80
+dvs04_03 ansible_host=192.168.11.80
 
 #DVS04-04
-dvs04_04 ansible_host=192.168.10.81
+dvs04_04 ansible_host=192.168.11.81
 
 #DVS04-05
-dvs04_05 ansible_host=192.168.10.82
+dvs04_05 ansible_host=192.168.11.82
 
 #DVS04-06
-dvs04_06 ansible_host=192.168.10.83
+dvs04_06 ansible_host=192.168.11.83
 
 [videoserver:children]
 wall
@@ -242,7 +242,7 @@ ansible_winrm_server_cert_validation=ignore
 [videoserver:vars]
 ansible_connection=winrm
 ansible_user="7thSense Design Ltd"
-ansible_password="" #No password 
+ansible_password="" #7th or no password
 ansible_winrm_server_cert_validation=ignore
 ; ansible_winrm_transport = kerberos
 ; ansible_winrm_message_encryption = auto

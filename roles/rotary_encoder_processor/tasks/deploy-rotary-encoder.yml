@@ -32,10 +32,35 @@
 - name: modify more key/values
   set_fact:
     current_payload: "{{ current_file['content'] | b64decode }}"
-- name: append more key/values
+- name: Change Callibration Offset per machine
   set_fact:
     modified_payload: "{{ current_payload | default([]) | combine({ 'CalibrationOffset': ROTARY.CalibrationOffset[inventory_hostname] }) }}"
+- name: Change OSCChannel
+  set_fact:
+    modified_payload: "{{ modified_payload | default([]) | combine({ 'OSCChannel': ROTARY.OSCChannel }) }}"
 - name: write vars back to file
   ansible.windows.win_copy: 
     content: "{{ modified_payload | to_nice_json }}" 
     dest:  "{{ rotary_encoder_config_path }}"
+
+- name: Making sure NSSM is installed for the service configuration
+  win_chocolatey:
+    name: nssm
+    state: present
+
+# Install the RotaryEncoder service, and then configure and start it with win_service
+- name: Install the RotaryEncoder service, redirecting stdout and stderr a log file in the same directory
+  win_nssm:
+    name: RotaryEncoder
+    application: C:\ViewBoston\Utils\RotaryEncoderProcessor\RotaryEncoderProcessor.exe
+    stdout_file: C:\ViewBoston\Utils\RotaryEncoderProcessor\RotaryEncoder.log
+    stderr_file: C:\ViewBoston\Utils\RotaryEncoderProcessor\RotaryEncoder.log
+
+- name: Stop the RotaryEncoder service
+  win_service:
+    name: RotaryEncoder
+    state: stopped
+- name: Start the RotaryEncoder service
+  win_service:
+    name: RotaryEncoder
+    state: started

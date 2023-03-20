@@ -1,0 +1,37 @@
+#"C:\Program Files\VideoLAN\VLC\vlc.exe" -I http --extraintf=http --http-host=0.0.0.0 --http-port=8080 --http-password=viewboston
+# This task install vlc from Chocolatey
+- name: Ensure vlc is installed through Chocolatey
+  win_chocolatey:
+    name: vlc
+    state: present
+  tags:
+    - package
+
+- name: Copy vlc batch file
+  ansible.windows.win_copy:
+    remote_src: true
+    src: \\192.168.10.26\ViewBoston\Utils\start-vlc-tactile.bat
+    dest: C:\ViewBoston\Utils\start-vlc-{{ group_names[0] }}.bat
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  tags:
+    - configuration
+
+- name: Create a scheduled task launch VLC fullscreen on startup
+  community.windows.win_scheduled_task:
+    name: VLC
+    description: Start VLC
+    actions:
+      - path: 'C:\ViewBoston\Utils\start-vlc-{{ group_names[0] }}.bat'
+    triggers:
+    - type: logon
+    username: vb
+    runlevel: highest
+    state: present
+    enabled: yes
+  tags:
+    - configuration

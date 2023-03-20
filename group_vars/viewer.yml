@@ -56,3 +56,4 @@ ROTARY:
     cpu05_09: 0
     cpu05_10: 0
     cpu05_11: 0
+  OSCChannel: "/sensor/slider1"

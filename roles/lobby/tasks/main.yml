@@ -4,4 +4,4 @@
   include_tasks: "{{ item }}"
   loop:
     - firewall-lobby.yml
-    - videolan-config.yml
+    - deploy-media.yml

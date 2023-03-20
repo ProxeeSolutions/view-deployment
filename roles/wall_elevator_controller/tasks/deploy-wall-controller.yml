@@ -44,14 +44,14 @@
     wall_elevator_controller_output_config_path: C:\ViewBoston\Utils\WallElevatorControllers\config.yml
 - name: Wall Elevator Controller Config file
   ansible.builtin.slurp:
-    src: "{{ wall_elevator_controller_config_path }}"
+    src: "{{ wall_elevator_controller_output_config_path }}"
   register: current_file
 - name: read key/values
   set_fact:
     current_payload: "{{ current_file['content'] | b64decode }}"
 - name: append more key/values
   set_fact:
-    modified_payload: "{{ current_payload | from_yaml | default([]) | combine({ 'finaleWall':{'seventhSense': {'address': SEVENTH_SENSE.address[inventory_hostname]} } }) }}"
+    modified_payload: "{{ current_payload | from_yaml | default([]) | combine({ 'finaleWall':{'seventhSense': {'address': SEVENTH_SENSE.address[inventory_hostname]} } }) }}"
   when: SEVENTH_SENSE.address[inventory_hostname] | d("")
 - name: write vars back to file
   ansible.windows.win_copy: 

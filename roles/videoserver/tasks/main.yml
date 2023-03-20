@@ -8,3 +8,4 @@
     - file-extensions.yml
     - set-hostname.yml
     - set-hosts-file.yml
+    - set-dns-servers.yml

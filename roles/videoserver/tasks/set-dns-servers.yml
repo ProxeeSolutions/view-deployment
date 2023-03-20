@@ -1,0 +1,8 @@
+---
+# Set the DNS servers
+- name: Set multiple dns servers on all visible adapters
+  ansible.windows.win_dns_client:
+    adapter_names: '*'
+    dns_servers:
+    - 8.8.8.8
+    - 8.8.4.4

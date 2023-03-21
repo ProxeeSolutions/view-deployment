@@ -55,7 +55,8 @@
     # /MT:32 use multithread
     # /IT select files with different attributes
     # /IM select files with different modified dates
-    flags: /E /MT:32 /IT /IM
+    # /ETA show estimated time
+    flags: /E /MT:32 /IT /IM /ETA
   throttle: 5
   become: true
   become_method: runas

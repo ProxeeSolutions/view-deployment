@@ -22,6 +22,11 @@
 
 # Rotary Encoder Processor Configuration
 # CalibrationOffset: int 0 to 3600
+#	"OSCChannel":"/sensor/slider1"
+#	"SerialBusBaudRate":115200
+#	"SensorPollIntervalMilliseconds":10
+#	"DivideValuesBy":3600.0
+
 - name: Set filepath
   set_fact:
     rotary_encoder_config_path: C:\ViewBoston\Utils\RotaryEncoderProcessor\config.json
@@ -35,9 +40,18 @@
 - name: Change Callibration Offset per machine
   set_fact:
     modified_payload: "{{ current_payload | default([]) | combine({ 'CalibrationOffset': ROTARY.CalibrationOffset[inventory_hostname] }) }}"
+- name: Change SerialBusBaudRate
+  set_fact:
+    modified_payload: "{{ modified_payload | default([]) | combine({ 'SerialBusBaudRate': ROTARY.SerialBusBaudRate }) }}"
 - name: Change OSCChannel
   set_fact:
     modified_payload: "{{ modified_payload | default([]) | combine({ 'OSCChannel': ROTARY.OSCChannel }) }}"
+- name: Change SensorPollIntervalMilliseconds
+  set_fact:
+    modified_payload: "{{ modified_payload | default([]) | combine({ 'SensorPollIntervalMilliseconds': ROTARY.SensorPollIntervalMilliseconds }) }}"
+- name: Change DivideValuesBy
+  set_fact:
+    modified_payload: "{{ modified_payload | default([]) | combine({ 'DivideValuesBy': ROTARY.DivideValuesBy }) }}"
 - name: write vars back to file
   ansible.windows.win_copy: 
     content: "{{ modified_payload | to_nice_json }}" 

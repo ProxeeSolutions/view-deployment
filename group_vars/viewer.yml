@@ -27,6 +27,7 @@ ELECTRON:
     cpu05_11: virtual_viewer_10
   ROUTE: /virtual-viewer
   CMS_API_ROOT: http://vbcms.local
+  VV_PANORAMA_IMG: VV_Boston_Base_230320_Shadow3_Sky2.jpg
 
 MONITORING:
   REMOTE_MONITORING_URL: 192.168.10.26:3510
@@ -57,3 +58,6 @@ ROTARY:
     cpu05_10: 0
     cpu05_11: 0
   OSCChannel: "/sensor/slider1"
+  SerialBusBaudRate: 115200
+  SensorPollIntervalMilliseconds: 10
+  DivideValuesBy: 3600.0

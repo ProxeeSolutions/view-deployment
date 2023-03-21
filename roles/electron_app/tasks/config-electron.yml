@@ -72,7 +72,7 @@
     path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
     regex: '^CMS_API_ROOT='
     state: present
-    backup: true
+    backup: false
     create: true
     line: "CMS_API_ROOT={{ ELECTRON.CMS_API_ROOT }}"
   register: lineresult
@@ -86,7 +86,7 @@
     path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
     regex: '^ROUTE='
     state: present
-    backup: true
+    backup: false
     create: true
     line: 'ROUTE={{ ELECTRON.ROUTE }}'
   tags:
@@ -100,7 +100,7 @@
     path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
     regex: '^DISCOVER_BOSTON_APP_SOURCE='
     state: present
-    backup: true
+    backup: false
     create: true
     line: "DISCOVER_BOSTON_APP_SOURCE={{ ELECTRON.DISCOVER_BOSTON_APP_SOURCE[inventory_hostname] }}"
   register: lineresult
@@ -116,7 +116,7 @@
     path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
     regex: '^THEATER_POSTER_APP_SOURCE='
     state: present
-    backup: true
+    backup: false
     create: true
     line: "THEATER_POSTER_APP_SOURCE={{ ELECTRON.THEATER_POSTER_APP_SOURCE[inventory_hostname] }}"
   register: lineresult
@@ -133,7 +133,7 @@
     path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
     regex: '^VIRTUAL_VIEWER_APP_SOURCE='
     state: present
-    backup: true
+    backup: false
     create: true
     line: "VIRTUAL_VIEWER_APP_SOURCE={{ ELECTRON.VIRTUAL_VIEWER_APP_SOURCE[inventory_hostname] }}"
   register: lineresult
@@ -150,7 +150,7 @@
     path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
     regex: '^FINALE_KIOSK_APP_SOURCE='
     state: present
-    backup: true
+    backup: false
     create: true
     line: "FINALE_KIOSK_APP_SOURCE={{ ELECTRON.FINALE_KIOSK_APP_SOURCE[inventory_hostname] }}"
   register: lineresult
@@ -159,4 +159,18 @@
     - configuration
     - electron
 
-
+# Configuration for viewer
+# VV_PANORAMA_IMG=VV_Boston_Base_230320_Shadow3_Sky2.jpg
+- name: modify configuration per hosts
+  community.windows.win_lineinfile:
+    path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+    regex: '^VV_PANORAMA_IMG='
+    state: present
+    backup: false
+    create: true
+    line: "VV_PANORAMA_IMG={{ ELECTRON.VV_PANORAMA_IMG }}"
+  register: lineresult
+  when: "'viewer' in group_names"
+  tags:
+    - configuration
+    - electron

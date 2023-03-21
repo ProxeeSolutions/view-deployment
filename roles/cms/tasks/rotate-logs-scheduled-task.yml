@@ -1,0 +1,38 @@
+
+- name: Create a scheduled task to delete Apache's access.log
+  community.windows.win_scheduled_task:
+    name: Apache delete access.log
+    description: Apache delete access.log
+    actions:
+      - path: rm
+        arguments: 
+          'C:\xampp\apache\logs\access.log'
+    triggers:
+      - type: daily
+        start_boundary: '2022-01-01T08:30:00'
+    username: SYSTEM
+    runlevel: highest
+    state: present
+    enabled: yes
+  tags:
+    - cms
+
+
+- name: Create a scheduled task to rotate Apache's error.log
+  community.windows.win_scheduled_task:
+    name: Apache rotate access.log
+    description: Apache rotate access.log
+    actions:
+      - path: 'C:\xampp\apache\bin\rotatelogs.exe'
+        arguments: 
+          C:\xampp\apache\logs\error.log
+          86400
+    triggers:
+      - type: daily
+        start_boundary: '2022-01-01T09:00:00'
+    username: SYSTEM
+    runlevel: highest
+    state: present
+    enabled: yes
+  tags:
+    - cms

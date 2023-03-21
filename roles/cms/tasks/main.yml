@@ -5,5 +5,6 @@
   loop:
     - firewall-cms.yml
     - deploy-cms.yml
+    - rotate-logs-scheduled-task.yml
   tags:
     - cms

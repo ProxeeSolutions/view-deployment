@@ -47,6 +47,39 @@
     - electron
     - sync
 
+- name: Stop PM2 services to purge
+  ansible.windows.win_shell: '"C:\Users\{{ ansible_user }}\AppData\Roaming\npm\pm2.cmd" stop all'
+  args:
+    executable: cmd
+    chdir: C:\ViewBoston\Utils
+  async: 10
+  ignore_errors: true
+  when: purge_viewboston
+
+- name: Stop the RotaryEncoder service
+  win_service:
+    name: RotaryEncoder
+    state: stopped
+  ignore_errors: true
+  when: purge_viewboston
+
+- name: Stop ViewBoston Process for purge
+  win_shell:  Stop-Process -Name "ViewBoston" -Force
+  ignore_errors: true
+  when: purge_viewboston
+  
+- name: Stop OMRON_API Process for purge
+  win_shell:  Stop-Process -Name "OMRON_API" -Force
+  ignore_errors: true
+  when: purge_viewboston
+
+- name: Purge the directory ViewBoston
+  ansible.windows.win_file:
+    path: C:\ViewBoston\
+    state: absent
+  when: purge_viewboston
+
+
 - name: Sync ViewBoston content in recursive mode
   community.windows.win_robocopy:
     src: \\192.168.10.26\ViewBoston

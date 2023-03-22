@@ -1,9 +1,23 @@
-- name: Ensure the directory ViewBoston is present
+- name: Ensure the directory RequestCacher is present
   ansible.windows.win_file:
     path: C:\ViewBoston\Utils\RequestCacher
     state: directory
   tags:
     - package
+
+- name: Stop Cacher service
+  ansible.windows.win_shell: '"C:\Users\{{ ansible_user }}\AppData\Roaming\npm\pm2.cmd" stop Cacher'
+  args:
+    executable: cmd
+    chdir: C:\ViewBoston\Utils
+  async: 10
+  ignore_errors: true
+
+- name: Pürge the directory RequestCacher\public
+  ansible.windows.win_file:
+    path: C:\ViewBoston\Utils\RequestCacher\public
+    state: absent
+  when: purge_requests
 
 # TODO Loop over to exclude public/ and db.dbjson
 - name: Copy Request Cacher files excluding cache files
@@ -20,6 +34,8 @@
   tags:
     - package
   
+
+
 - name: Delete package-lock.json
   ansible.windows.win_file:
     path: C:\ViewBoston\Utils\RequestCacher\package-lock.json
@@ -71,3 +87,11 @@
     line: "MONITORING_SOURCE_NAME={{ MONITORING.MONITORING_SOURCE_NAME[inventory_hostname] }}"
   tags:
     - configuration
+
+- name: Start Cacher service
+  ansible.windows.win_shell: '"C:\Users\{{ ansible_user }}\AppData\Roaming\npm\pm2.cmd" start Cacher'
+  args:
+    executable: cmd
+    chdir: C:\ViewBoston\Utils
+  async: 10
+  ignore_errors: true

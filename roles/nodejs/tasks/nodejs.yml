@@ -10,10 +10,22 @@
     throttle: 1
     notify: restart-computer
 
-  - name: Sleep for 3 seconds for Chocolatey Rate-Limits respect
-    ansible.builtin.wait_for:
-      timeout: 3
-    delegate_to: localhost
+# Allow nodejs through
+- name: Firewall rule to allow NodeJS
+  community.windows.win_firewall_rule:
+    name: NodeJS
+    action: allow
+    direction: in
+    protocol: tcp
+    program: C:\Program Files\nodejs\node.exe
+    profiles: domain,private,public
+    state: present
+    enabled: yes
+
+- name: Sleep for 3 seconds for Chocolatey Rate-Limits respect
+  ansible.builtin.wait_for:
+    timeout: 3
+  delegate_to: localhost
 
 #Install PM2
 - name: Install "PM2" node.js package globally.

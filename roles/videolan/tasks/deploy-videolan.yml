@@ -7,31 +7,64 @@
   tags:
     - package
 
-- name: Copy vlc batch file
+- name: Copy vlc batch file for tactile
   ansible.windows.win_copy:
     remote_src: true
-    src: \\192.168.10.26\ViewBoston\Utils\start-vlc-tactile.bat
-    dest: C:\ViewBoston\Utils\start-vlc-{{ group_names[0] }}.bat
+    src: '\\192.168.10.26\ViewBoston\Utils\start-vlc-tactile.bat'
+    dest: 'C:\ViewBoston\Utils\start-vlc-tactile.bat'
   become: true
   become_method: runas
   become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  when: "'tactile' in group_names"
   vars:
     ansible_become_user: vb
     ansible_become_pass: View
   tags:
     - configuration
 
-- name: Create a scheduled task launch VLC fullscreen on startup
+- name: Copy vlc batch file for lobby
+  ansible.windows.win_copy:
+    remote_src: true
+    src: '\\192.168.10.26\ViewBoston\Utils\start-vlc-lobby.bat'
+    dest: 'C:\ViewBoston\Utils\start-vlc-lobby.bat'
+  become: true
+  become_method: runas
+  become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+  when: "'lobby' in group_names"
+  vars:
+    ansible_become_user: vb
+    ansible_become_pass: View
+  tags:
+    - configuration
+
+- name: Create a scheduled task launch to VLC fullscreen on startup
   community.windows.win_scheduled_task:
     name: VLC
     description: Start VLC
     actions:
-      - path: 'C:\ViewBoston\Utils\start-vlc-{{ group_names[0] }}.bat'
+      - path: 'C:\ViewBoston\Utils\start-vlc-tactile.bat'
     triggers:
     - type: logon
     username: vb
     runlevel: highest
     state: present
     enabled: yes
+  when: "'tactile' in group_names"
+  tags:
+    - configuration
+
+- name: Create a scheduled task launch to VLC fullscreen on startup
+  community.windows.win_scheduled_task:
+    name: VLC
+    description: Start VLC
+    actions:
+      - path: 'C:\ViewBoston\Utils\start-vlc-lobby.bat'
+    triggers:
+    - type: logon
+    username: vb
+    runlevel: highest
+    state: present
+    enabled: yes
+  when: "'lobby' in group_names"
   tags:
     - configuration

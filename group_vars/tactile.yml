@@ -23,6 +23,10 @@ TACTILECONTROLLER:
   VLC_PASSWORD : "viewboston"
   VLC_VOLUME : 100 #[1-100]
 
-AUDIO_VOLUME: 10
+AUDIO_VOLUME:
+  cpu02_02: 10
+  cpu02_03: 10
+  cpu02_04: 10
+  cpu02_05: 10
 
 CMS_API_ROOT: http://vbcms.local

@@ -31,6 +31,29 @@ ELECTRON:
     cpu05_36: finale_11
     cpu05_37: finale_12
   CMS_API_ROOT: http://vbcms.local
+  # Entre 0 et 1
+  VOLUME_SOUND_FXS:
+   cpu05_02: 0.5
+   cpu05_03: 0.5
+   cpu05_04: 0.5
+   cpu05_05: 0.5
+   cpu05_06: 0.5
+   cpu05_07: 0.5
+   cpu05_08: 0.5
+   cpu05_09: 0.5
+   cpu05_10: 0.5
+   cpu05_11: 0.5
+  VOLUME_T2S:
+   cpu05_02: 1
+   cpu05_03: 1
+   cpu05_04: 1
+   cpu05_05: 1
+   cpu05_06: 1
+   cpu05_07: 1
+   cpu05_08: 1
+   cpu05_09: 1
+   cpu05_10: 1
+   cpu05_11: 1
 
 MONITORING:
   REMOTE_MONITORING_URL: 192.168.10.26:3540
@@ -48,6 +71,18 @@ MONITORING:
     cpu05_36: S20-11
     cpu05_37: S20-12
 
-AUDIO_VOLUME: 10
+AUDIO_VOLUME:
+  cpu05_26: 12
+  cpu05_27: 12
+  cpu05_28: 12
+  cpu05_29: 12
+  cpu05_30: 12
+  cpu05_31: 12
+  cpu05_32: 12
+  cpu05_33: 12
+  cpu05_34: 12
+  cpu05_35: 12
+  cpu05_36: 12
+  cpu05_37: 12
 
 CMS_API_ROOT: http://vbcms.local

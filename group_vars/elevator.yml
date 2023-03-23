@@ -1,6 +1,13 @@
 pm2_config_file: elevator.config.js
 
-AUDIO_VOLUME: 50
+AUDIO_VOLUME:
+    dvs06_01: 50
+    dvs04_01: 50
+    dvs04_02: 50
+    dvs04_03: 50
+    dvs04_04: 50
+    dvs04_05: 50
+    dvs04_06: 50
 
 CMS_API_ROOT: https://vbcms.local/api/get/content
 

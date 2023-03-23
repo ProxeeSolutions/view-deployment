@@ -66,7 +66,17 @@ MONITORING:
     cpu05_10: G11-09
     cpu05_11: G11-10
 
-AUDIO_VOLUME: 10 # 7000/65536
+AUDIO_VOLUME: # 7000/65536
+  cpu05_02: 7
+  cpu05_03: 7
+  cpu05_04: 7
+  cpu05_05: 7
+  cpu05_06: 7
+  cpu05_07: 7
+  cpu05_08: 7
+  cpu05_09: 7
+  cpu05_10: 7
+  cpu05_11: 7
 
 ROTARY:
   CalibrationOffset:
@@ -79,7 +89,7 @@ ROTARY:
     cpu05_08: 1800
     cpu05_09: 3370
     cpu05_10:    0
-    cpu05_11:    0 # Not installed yet
+    cpu05_11: 2500 # Mount not in right position
   OSCChannel: "/sensor/slider1"
   SerialBusBaudRate: 115200
   SensorPollIntervalMilliseconds: 10

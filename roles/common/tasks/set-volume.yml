@@ -7,7 +7,55 @@
       - audio
 
 - name: Set Volume with nircmd
-  win_shell: "nircmd.exe setsysvolume {{ (AUDIO_VOLUME| int / 100 * 65535) | int  }}"
+  win_shell: "nircmd.exe setsysvolume {{ (AUDIO_VOLUME[inventory_hostname]| int / 100 * 65535) | int  }}"
   when: AUDIO_VOLUME is defined
   tags:
     - audio
+
+# - name: Stop ViewBoston Process for copy
+#   win_shell:  Stop-Process -Name "ViewBoston" -Force
+#   ignore_errors: true
+#   tags:
+#   - audio
+#   when: "'electron_app' in role_names"
+
+# - name: modify sound effects volume configuration
+#   community.windows.win_lineinfile:
+#     path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+#     regex: '^VOLUME_SOUND_FXS='
+#     state: present
+#     backup: false
+#     create: true
+#     line: 'VOLUME_SOUND_FXS={{ ELECTRON.VOLUME_SOUND_FXS[inventory_hostname] }}'
+#   when: ELECTRON.VOLUME_SOUND_FXS[inventory_hostname] is defined
+#   tags:
+#     - configuration
+#     - audio 
+
+# - name: modify text-to-speech volume configuration
+#   community.windows.win_lineinfile:
+#     path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+#     regex: '^VOLUME_T2S='
+#     state: present
+#     backup: false
+#     create: true
+#     line: 'VOLUME_SOUND_FXS={{ ELECTRON.VOLUME_T2S[inventory_hostname] }}'
+#   when: ELECTRON.VOLUME_T2S[inventory_hostname] is defined
+#   tags:
+#     - configuration
+#     - audio
+
+
+# - name: Start ViewBoston Process after audio settings
+#   ansible.windows.win_shell: C:\Users\VB\AppData\Local\Programs\viewboston\ViewBoston.exe
+#   args:  
+#     chdir: C:\Users\VB\AppData\Local\Programs\viewboston\
+#   tags:
+#     - audio
+#   become: true
+#   become_method: runas
+#   become_flags: logon_type=new_credentials logon_flags=netcredentials_only
+#   vars:
+#     ansible_become_user: vb
+#     ansible_become_pass: View
+#   when: "'electron_app' in role_names"

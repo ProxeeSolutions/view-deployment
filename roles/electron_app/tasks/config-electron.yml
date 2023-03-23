@@ -93,6 +93,33 @@
     - configuration
     - electron
 
+- name: modify sound effects volume configuration
+  community.windows.win_lineinfile:
+    path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+    regex: '^VOLUME_SOUND_FXS='
+    state: present
+    backup: false
+    create: true
+    line: 'VOLUME_SOUND_FXS={{ ELECTRON.VOLUME_SOUND_FXS[inventory_hostname] }}'
+  when: ELECTRON.VOLUME_SOUND_FXS[inventory_hostname] is defined
+  tags:
+    - configuration
+    - electron
+    - audio 
+
+- name: modify text-to-speech volume configuration
+  community.windows.win_lineinfile:
+    path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+    regex: '^VOLUME_T2S='
+    state: present
+    backup: false
+    create: true
+    line: 'VOLUME_SOUND_FXS={{ ELECTRON.VOLUME_T2S[inventory_hostname] }}'
+  when: ELECTRON.VOLUME_T2S[inventory_hostname] is defined
+  tags:
+    - configuration
+    - electron
+    - audio
 
 # Configuration for discover-boston
 - name: modify configuration per hosts

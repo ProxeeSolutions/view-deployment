@@ -1,26 +1,27 @@
 ---
 # Install ASP.NET Core Runtime 6.0.0. Hosting Bundle
 # https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-aspnetcore-6.0.0-windows-hosting-bundle-installer
-- name: Create temporary build directory
-  ansible.windows.win_tempfile:
-    state: directory
-    suffix: installers
-  register: result
-
-- debug:
-    msg: "Copied installer to {{ result.path }}"
-
-- name: Copy ASP.NET Core Runtime 6.0.0. Hosting Bundle to temp directory
-  ansible.windows.win_copy:
-    src: ../../packages/dotnet-hosting-6.0.0-win.exe
-    dest: '{{result.path}}\'
-- name: Install ASP.NET Core Runtime 6.0.0. Hosting Bundle
-  ansible.windows.win_package:
-    path: '{{result.path}}\dotnet-hosting-6.0.0-win.exe'
-    arguments: /quiet /install
-    product_id: '{120E0990-DDCC-456B-8B29-0BDD2D82C4EA}'
-    state: present
-  ignore_errors: true
+- name: Install ASP.NET
+  block:
+  - name: Create temporary build directory
+    ansible.windows.win_tempfile:
+      state: directory
+      suffix: installers
+    register: result
+  - debug:
+      msg: "Copied installer to {{ result.path }}"
+  - name: Copy ASP.NET Core Runtime 6.0.0. Hosting Bundle to temp directory
+    ansible.windows.win_copy:
+      src: ../../packages/dotnet-hosting-6.0.0-win.exe
+      dest: '{{result.path}}\'
+  - name: Install ASP.NET Core Runtime 6.0.0. Hosting Bundle
+    ansible.windows.win_package:
+      path: '{{result.path}}\dotnet-hosting-6.0.0-win.exe'
+      arguments: /quiet /install
+      product_id: '{120E0990-DDCC-456B-8B29-0BDD2D82C4EA}'
+      state: present
+    ignore_errors: true
+  when: install_requirements
 
 #Product Ids for all installed components
 #{120E0990-DDCC-456B-8B29-0BDD2D82C4EA} Microsoft .NET Host - 6.0.0 (x64)                              C:\Windows\Ins...

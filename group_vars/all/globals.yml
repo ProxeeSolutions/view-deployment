@@ -1,2 +1,4 @@
 purge_requests: false
 purge_viewboston: false
+reboot_machines: false
+install_requirements: false

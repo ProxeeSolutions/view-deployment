@@ -47,31 +47,33 @@
     - electron
     - sync
 
-- name: Stop PM2 services to purge
+- name: Stop PM2 services for copy
   ansible.windows.win_shell: '"C:\Users\{{ ansible_user }}\AppData\Roaming\npm\pm2.cmd" stop all'
   args:
     executable: cmd
     chdir: C:\ViewBoston\Utils
   async: 10
   ignore_errors: true
-  when: purge_viewboston
+  when: "'request_cacher' in role_names or 'osc_emulator' in role_names"
 
-- name: Stop the RotaryEncoder service
+- name: Stop the RotaryEncoder service for copy
   win_service:
     name: RotaryEncoder
     state: stopped
   ignore_errors: true
-  when: purge_viewboston
+  when: "'rotary_encoder_processor' in role_names"
 
-- name: Stop ViewBoston Process for purge
+- name: Stop ViewBoston Process for copy
   win_shell:  Stop-Process -Name "ViewBoston" -Force
   ignore_errors: true
-  when: purge_viewboston
+  when: "'electron_app' in role_names"
   
-- name: Stop OMRON_API Process for purge
+- name: Stop OMRON_API Process for copy
   win_shell:  Stop-Process -Name "OMRON_API" -Force
   ignore_errors: true
-  when: purge_viewboston
+  when: "'omron_camera_processor' in role_names"
+
+
 
 - name: Purge the directory ViewBoston
   ansible.windows.win_file:

@@ -1,7 +1,6 @@
 ---
 # Playbook for all systems deployment
-- hosts: all
-  tasks:
+
 - import_playbook: storage.yml
 - import_playbook: cms.yml
 - import_playbook: elevator.yml
@@ -12,3 +11,12 @@
 - import_playbook: poster.yml
 - import_playbook: lobby.yml
 - import_playbook: viewer.yml
+
+# Final reboot once everything is deployed
+- hosts: all
+  tasks:
+  - name: Reboot the machine if specified
+    ansible.windows.win_reboot:
+    when: reboot_machines and "'server' not in group_names"
+    async: 45
+    poll: 0

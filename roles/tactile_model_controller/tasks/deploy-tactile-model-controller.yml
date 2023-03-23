@@ -38,7 +38,6 @@
     path: C:\ViewBoston\Utils\TactileModelController\.env
     regex: '^LANDMARKS='
     state: present
-    backup: true
     create: true
     line: "LANDMARKS={{ TACTILECONTROLLER.LANDMARKS[inventory_hostname] }}"
   register: lineresult
@@ -51,13 +50,69 @@
     path: C:\ViewBoston\Utils\TactileModelController\.env
     regex: '^CMS_API_ROOT='
     state: present
-    backup: true
     create: true
     line: "CMS_API_ROOT={{ CMS_API_ROOT }}"
   register: lineresult
   tags:
     - configuration
     - electron
+
+
+
+# VLC_IPADDRESS : default "localhost"
+- name: modify VLC_IPADDRESS configuration per hosts
+  community.windows.win_lineinfile:
+    path: C:\ViewBoston\Utils\TactileModelController\.env
+    regex: '^VLC_IPADDRESS='
+    state: present
+    create: true
+    line: "VLC_IPADDRESS={{ TACTILECONTROLLER.VLC_IPADDRESS }}"
+  register: lineresult
+  tags:
+    - configuration
+    - electron
+  
+# VLC_PORT : default 8080
+- name: modify VLC_PORT configuration per hosts
+  community.windows.win_lineinfile:
+    path: C:\ViewBoston\Utils\TactileModelController\.env
+    regex: '^VLC_PORT='
+    state: present
+    create: true
+    line: "VLC_PORT={{ TACTILECONTROLLER.VLC_PORT }}"
+  register: lineresult
+  tags:
+    - configuration
+    - electron
+  
+# VLC_PASSWORD : default "viewboston"
+- name: modify VLC_PASSWORD configuration per hosts
+  community.windows.win_lineinfile:
+    path: C:\ViewBoston\Utils\TactileModelController\.env
+    regex: '^VLC_PASSWORD='
+    state: present
+
+    create: true
+    line: "VLC_PASSWORD={{ TACTILECONTROLLER.VLC_PASSWORD }}"
+  register: lineresult
+  tags:
+    - configuration
+    - electron
+
+# VLC_VOLUME : default 100 [1-100]
+- name: modify VLC_VOLUME configuration per hosts
+  community.windows.win_lineinfile:
+    path: C:\ViewBoston\Utils\TactileModelController\.env
+    regex: '^VLC_VOLUME='
+    state: present
+    backup: true
+    create: true
+    line: "VLC_VOLUME={{ TACTILECONTROLLER.VLC_VOLUME }}"
+  register: lineresult
+  tags:
+    - configuration
+    - electron
+
 
 - name: Delete package-lock.json
   ansible.windows.win_file:

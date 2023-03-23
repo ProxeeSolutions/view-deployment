@@ -18,7 +18,11 @@ TACTILECONTROLLER:
     cpu02_03: "43,37,39"
     cpu02_04: "44,41,40"
     cpu02_05: "46,175"
+  VLC_IPADDRESS : "127.0.0.1"
+  VLC_PORT : 8080
+  VLC_PASSWORD : "viewboston"
+  VLC_VOLUME : 100 #[1-100]
 
-AUDIO_VOLUME: 50
+AUDIO_VOLUME: 10
 
 CMS_API_ROOT: http://vbcms.local

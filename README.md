@@ -1,10 +1,14 @@
 # view-deployment
 
-Deployement Scripts for Windows Remote setup
+## Description
 
-## Setup
+A Collection of Ansible deployement scripts for the *View Boston* installation.
 
+The scripts can be run from any machine (Linux, macOS or Windows under WSL) connected to the network. They will configure and deployed the needed resources on the targets.
 
+## Setup on target machines
+
+A setup script is included to setup the WinRM remoting service and take care of the authentication protocols.
 
 ### Enable running PowerShell Scripts
 
@@ -21,6 +25,23 @@ $file = "$env:temp\view-win-host-setup.ps1"
 (New-Object -TypeName System.Net.WebClient).DownloadFile($url, $file)
 powershell.exe -ExecutionPolicy ByPass -File $file
 ```
+
+## Setup
+
+### Windows Subsystem for Linux
+
+Ansible only runs under WSL in Windows. From an elevated PowerShell prompt:
+
+    wsl --install
+
+Once completed, restart the computer. Download the latest Ubuntu LTS release from the Microsoft Store. It will then be available as `ubuntu` from the Windows menu.
+
+The current installation is running from the `SVR01-03` machine. the scripts are in the `~\view-deployement` directory.
+
+### Install Ansible
+
+    sudo apt install python3
+    pip install ansible
 
 ### Test in Ansible
 
@@ -41,6 +62,8 @@ It should return:
 
 ### Target groups in inventory
 
+the `inventory` file contains the definition for the hosts and some hosts variables.
+
 - lobby
 - poster
 - interactive
@@ -51,6 +74,9 @@ It should return:
 - viewer
 - tactile
 
+### Group variables
+
+Insidee the `group_vars` directory, group variables can be specified for specific groups by putting then in the corresponding `<group>.yml` file
 ### Secrets
 
 Secret passwords and token are store in an encrypted vault under the `groups_vars/all` directory
@@ -63,6 +89,7 @@ To issue on-demand command, use the `ansible` command. the `-m win_shell` option
 
 #### Ad-Hoc Examples
 
+Ad-hoc commands can be run without the need for a playbook file.
 ##### PM2 restart on poster machines
 
     ansible -m win_shell -a 'pm2 restart all' poster
@@ -70,10 +97,6 @@ To issue on-demand command, use the `ansible` command. the `-m win_shell` option
 ##### Reboot poster Computers
 
     ansible -m ansible.windows.win_reboot poster
-
-
-
-
 
 ### Running playbooks
 
@@ -103,6 +126,27 @@ Only synchronize files in the `ViewBoston/` directory from the storage server:
 
     ansible-playbook site.yml --tags sync
 
-Set audio volumes everywhere (volume variable take nfrom the `group_vars` files)
+Set audio volumes everywhere (volume variable taken from the `group_vars` files)
 
     ansible-playbook site.yml --tags audio
+
+Set audio volumes for sound effects and tts using tags
+
+    ansible-playbook site.yml --tags: electron,audio
+####
+
+If the playbook hangs on the Sync View Boston directory task, it means the SMB server on SRV-03 has maxed out it's connection. Reboot it to resolve.
+
+
+
+#### Purging Request Cacher public files
+
+    ansible-playbook site.yml --limit <groups or machines> --extra-vars '{"purge_requests": true}'
+
+#### Purging ViewBoston files limiting to interactives
+
+    ansible-playbook site.yml --limit interactive --extra-vars '{"purge_viewboston": true}'
+
+#### Rebooting after site deployment
+
+    ansible-playbook site.yml --extra-vars '{"reboot_machines": true}'

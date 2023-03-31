@@ -1,0 +1,147 @@
+---
+# Playbook to configure replication between the two cms servers.
+# Replication is done as master-slave
+
+- hosts: cms
+  tasks:
+
+  # Tactile Model Controller : 3100, 7000
+  - name: Firewall rule to allow MySQL traffic on 3306/TCP
+    community.windows.win_firewall_rule:
+      name: MySQL
+      localport: 3306
+      action: allow
+      direction: in
+      protocol: tcp
+      profiles: domain,private,public
+      state: present
+      enabled: yes
+
+    ## Master Configuration
+    # server-id = 1
+  - name: "modify server-id for master to: {{ MYSQL_SERVER_ID_MASTER }}"
+    community.windows.win_lineinfile:
+      path: "{{ MYSQL_CONFIG_FILE }}" 
+      regex: '^server-id'
+      state: present
+      backup: false
+      create: false
+      line: "server-id = {{ MYSQL_SERVER_ID_MASTER }}"
+      insertafter: '^\[mysqld\]'
+    register: lineresult
+    when: inventory_hostname == 'svr01_01'
+
+    # binlog_do_db  = vb_cms
+  - name: "modify binlog_do_db for master to: {{ MYSQL_DB_NAME }}"
+    community.windows.win_lineinfile:
+      path: "{{ MYSQL_CONFIG_FILE }}" 
+      regex: '^binlog_do_db'
+      state: present
+      backup: false
+      create: false
+      line: "binlog_do_db = {{ MYSQL_DB_NAME }}"
+      insertafter: '^\[mysqld\]'
+    register: lineresult
+    when: inventory_hostname == 'svr01_01'
+
+  ## Slave Configuration
+
+    # server-id = 2
+  - name: "modify server-id for master to: {{ MYSQL_SERVER_ID_SLAVE }}"
+    community.windows.win_lineinfile:
+      path: "{{ MYSQL_CONFIG_FILE }}" 
+      regex: '^server-id'
+      state: present
+      backup: false
+      create: true
+      line: "server-id = {{ MYSQL_SERVER_ID_SLAVE }}"
+      insertafter: '^\[mysqld\]'
+    register: lineresult
+    when: inventory_hostname == 'svr01_02'
+
+    # master-host = 192.168.10.24
+  - name: "modify master-host for slave to: {{ MYSQL_MASTER_HOST }}"
+    community.windows.win_lineinfile:
+      path: "{{ MYSQL_CONFIG_FILE }}" 
+      regex: '^master-host'
+      state: present
+      backup: false
+      create: true
+      line: "master-host = {{ MYSQL_MASTER_HOST }}"
+      insertafter: '^\[mysqld\]'
+    register: lineresult
+    when: inventory_hostname == 'svr01_02'
+
+    # master-password = {{ MYSQL_REPLICATION_KEY }}
+  - name: "modify master-password for slave"
+    community.windows.win_lineinfile:
+      path: "{{ MYSQL_CONFIG_FILE }}" 
+      regex: '^master-password'
+      state: present
+      backup: false
+      create: true
+      line: "master-password= {{ MYSQL_REPLICA_PASSWORD }}"
+      insertafter: '^\[mysqld\]'
+    register: lineresult
+    when: inventory_hostname == 'svr01_02'
+
+
+    ## MASTER and SLAVE
+    # log_bin = mysql-bin
+  - name: "modify log_bin for master and slave to: mysql-bin"
+    community.windows.win_lineinfile:
+      path: "{{ MYSQL_CONFIG_FILE }}" 
+      regex: '^log_bin'
+      state: present
+      backup: false
+      create: false
+      line: "log_bin = mysql-bin"
+      insertafter: '^\[mysqld\]'
+    register: lineresult
+  # bind-address =  ansible_host
+  - name: "modify bind-address to: ::"
+    community.windows.win_lineinfile:
+      path: "{{ MYSQL_CONFIG_FILE }}" 
+      regex: '^bind-address'
+      state: present
+      backup: false
+      create: false
+      line: "bind-address = ::"
+      insertafter: '^\[mysqld\]'
+    register: lineresult
+
+  #Restart service on both
+  - name: Restart the MySQL service on master
+    win_service:
+      name: mysql
+      state: restarted
+    ignore_errors: false
+    when: inventory_hostname == 'svr01_01'
+
+
+  # CREATE USER 'replica_user'@'192.168.10.25' IDENTIFIED WITH mysql_native_password BY 'password';
+  #"CREATE USER ' {{ MYSQL_REPLICA_USER }}'@'192.168.10.25' IDENTIFIED WITH mysql_native_password BY '{{ MYSQL_REPLICATION_KEY }}';
+  - name: "Creating replication user: {{ MYSQL_REPLICA_USER }} on master"
+    community.mysql.mysql_query:
+      login_db: mysql
+      login_host: 192.168.10.24
+      login_user: "{{ MYSQL_ROOT_USER }}"
+      login_password: "{{ MYSQL_ROOT_PASSWORD }}"
+      query: 
+        - "CREATE USER '{{ MYSQL_REPLICA_USER }}'@'192.168.10.24' IDENTIFIED BY '{{ MYSQL_REPLICA_PASSWORD }}'"
+        - "GRANT REPLICATION SLAVE ON *.* TO '{{ MYSQL_REPLICA_USER }}'@'192.168.10.24'"
+        - "FLUSH PRIVILEGES"
+    register: query_result
+    when: inventory_hostname == 'svr01_01'
+    delegate_to: localhost
+    ignore_errors: true
+
+  - debug:
+      msg: "Query Results: {{ query_result }}"
+
+  #Restart service on both
+  - name: Restart the MySQL service
+    win_service:
+      name: mysql
+      state: restarted
+    ignore_errors: false

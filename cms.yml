@@ -6,3 +6,6 @@
     - common
     - zerotier
     - cms
+
+- name: Include the replication playbook
+  include: playbooks/mysql-replication.yml

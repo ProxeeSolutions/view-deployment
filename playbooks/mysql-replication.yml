@@ -128,8 +128,8 @@
       login_user: "{{ MYSQL_ROOT_USER }}"
       login_password: "{{ MYSQL_ROOT_PASSWORD }}"
       query: 
-        - "CREATE USER '{{ MYSQL_REPLICA_USER }}'@'192.168.10.24' IDENTIFIED BY '{{ MYSQL_REPLICA_PASSWORD }}'"
-        - "GRANT REPLICATION SLAVE ON *.* TO '{{ MYSQL_REPLICA_USER }}'@'192.168.10.24'"
+        - "CREATE USER '{{ MYSQL_REPLICA_USER }}'@'192.168.10.25' IDENTIFIED BY '{{ MYSQL_REPLICA_PASSWORD }}'"
+        - "GRANT REPLICATION SLAVE ON *.* TO '{{ MYSQL_REPLICA_USER }}'@'192.168.10.25'"
         - "FLUSH PRIVILEGES"
     register: query_result
     when: inventory_hostname == 'svr01_01'

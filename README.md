@@ -81,6 +81,12 @@ Insidee the `group_vars` directory, group variables can be specified for specifi
 
 Secret passwords and token are store in an encrypted vault under the `groups_vars/all` directory
 
+### File share
+
+To deploy the necessary files on the stations, ansible will use a windows file share located on the storage server at `\\192.168.10.26\ViewBoston`.  This share will be synced to every machine during the deployment process.
+
+To update the Electron app, place the new version in the following path `\\192.168.10.26\ViewBoston\Electron\`and append the date (and a letter for multiple version in the day) to the executable file. For example `C:\ViewBoston\Electron\20230323b_ViewBostonSetup1.0.0.exe` would correspond the the second version for the 23 march 2023. You must then change the reference in the following deployment script: `roles/electron/tasks/install-electron.yml` on line 10.
+
 ### Running Ad-Hoc command
 
 To issue on-demand command, use the `ansible` command. the `-m win_shell` option will be used to send shell commands to windows machines. The target can be one or multiople machines separated by comas and a trailing coma, or a group defined in the `inventory` file.

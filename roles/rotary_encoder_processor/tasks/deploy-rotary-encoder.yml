@@ -26,6 +26,7 @@
 #	"SerialBusBaudRate":115200
 #	"SensorPollIntervalMilliseconds":10
 #	"DivideValuesBy":3600.0
+# "ScanRetryIntervalMilliseconds":2000
 
 - name: Set filepath
   set_fact:
@@ -52,6 +53,9 @@
 - name: Change DivideValuesBy
   set_fact:
     modified_payload: "{{ modified_payload | default([]) | combine({ 'DivideValuesBy': ROTARY.DivideValuesBy }) }}"
+- name: Change ScanRetryIntervalMilliseconds
+  set_fact:
+    modified_payload: "{{ modified_payload | default([]) | combine({ 'ScanRetryIntervalMilliseconds': ROTARY.ScanRetryIntervalMilliseconds }) }}"    
 - name: write vars back to file
   ansible.windows.win_copy: 
     content: "{{ modified_payload | to_nice_json }}" 

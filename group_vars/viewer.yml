@@ -80,17 +80,18 @@ AUDIO_VOLUME: # 7000/65536
 
 ROTARY:
   CalibrationOffset:
-    cpu05_02:    0 #Broken encoder for now
-    cpu05_03: 2200
-    cpu05_04:  900
-    cpu05_05:  750
-    cpu05_06:    0 #Broken wire
-    cpu05_07: 2950
-    cpu05_08: 1800
-    cpu05_09: 3370
-    cpu05_10:    0
-    cpu05_11: 2500 # Mount not in right position
+    cpu05_02: 1656
+    cpu05_03: 1656
+    cpu05_04: 1656
+    cpu05_05: 1656
+    cpu05_06: 1656
+    cpu05_07: 1656
+    cpu05_08: 1656
+    cpu05_09: 1656
+    cpu05_10: 1656
+    cpu05_11: 1656
   OSCChannel: "/sensor/slider1"
-  SerialBusBaudRate: 115200
-  SensorPollIntervalMilliseconds: 10
+  SerialBusBaudRate: 9600
+  SensorPollIntervalMilliseconds: 16
   DivideValuesBy: 3600.0
+  ScanRetryIntervalMilliseconds: 2000

@@ -15,8 +15,32 @@ ELECTRON:
     cpu02_10: theatre_poster_3
     cpu02_11: theatre_poster_4
     cpu02_12: theatre_poster_5
+  CMS_API_GET_CONTENT_CRON:
+    cpu02_08: 1 */1 * * *
+    cpu02_09: 2 */1 * * *
+    cpu02_10: 3 */1 * * *
+    cpu02_11: 4 */1 * * *
+    cpu02_12: 5 */1 * * *
+  CMS_API_GET_SETTINGS_CRON:
+    cpu02_08: 1 */1 * * *
+    cpu02_09: 2 */1 * * *
+    cpu02_10: 3 */1 * * *
+    cpu02_11: 4 */1 * * *
+    cpu02_12: 5 */1 * * *
   ROUTE: /theater-poster
   CMS_API_ROOT: http://vbcms.local
+  VOLUME_SOUND_FXS:
+    cpu02_08: 1
+    cpu02_09: 1
+    cpu02_10: 1
+    cpu02_11: 1
+    cpu02_12: 1
+  VOLUME_T2S:
+    cpu02_08: 1
+    cpu02_09: 1
+    cpu02_10: 1
+    cpu02_11: 1
+    cpu02_12: 1
 
 MONITORING:
   REMOTE_MONITORING_URL: 192.168.10.26:3530

@@ -80,7 +80,6 @@
     - configuration
     - electron
 
-
 - name: modify route configuration
   community.windows.win_lineinfile:
     path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
@@ -89,6 +88,32 @@
     backup: false
     create: true
     line: 'ROUTE={{ ELECTRON.ROUTE }}'
+  tags:
+    - configuration
+    - electron
+
+- name: modify content api cron job
+  community.windows.win_lineinfile:
+    path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+    regex: '^CMS_API_GET_CONTENT_CRON='
+    state: present
+    backup: false
+    create: true
+    line: "CMS_API_GET_CONTENT_CRON={{ ELECTRON.CMS_API_GET_CONTENT_CRON[inventory_hostname] }}"
+  register: lineresult
+  tags:
+    - configuration
+    - electron
+
+- name: modify settings api cron job
+  community.windows.win_lineinfile:
+    path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+    regex: '^CMS_API_GET_SETTINGS_CRON='
+    state: present
+    backup: false
+    create: true
+    line: "CMS_API_GET_SETTINGS_CRON={{ ELECTRON.CMS_API_GET_SETTINGS_CRON[inventory_hostname] }}"
+  register: lineresult
   tags:
     - configuration
     - electron

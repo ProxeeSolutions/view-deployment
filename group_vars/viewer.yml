@@ -25,32 +25,54 @@ ELECTRON:
     cpu05_09: virtual_viewer_8
     cpu05_10: virtual_viewer_9
     cpu05_11: virtual_viewer_10
+  CMS_API_GET_CONTENT_CRON:
+    cpu05_02: 11 */1 * * *
+    cpu05_03: 12 */1 * * *
+    cpu05_04: 13 */1 * * *
+    cpu05_05: 14 */1 * * *
+    cpu05_06: 15 */1 * * *
+    cpu05_07: 16 */1 * * *
+    cpu05_08: 17 */1 * * *
+    cpu05_09: 18 */1 * * *
+    cpu05_10: 19 */1 * * *
+    cpu05_11: 20 */1 * * *
+  CMS_API_GET_SETTINGS_CRON:
+    cpu05_02: 11 */1 * * *
+    cpu05_03: 12 */1 * * *
+    cpu05_04: 13 */1 * * *
+    cpu05_05: 14 */1 * * *
+    cpu05_06: 15 */1 * * *
+    cpu05_07: 16 */1 * * *
+    cpu05_08: 17 */1 * * *
+    cpu05_09: 18 */1 * * *
+    cpu05_10: 19 */1 * * *
+    cpu05_11: 20 */1 * * *
   ROUTE: /virtual-viewer
   CMS_API_ROOT: http://vbcms.local
   VV_PANORAMA_IMG: VV_Boston_Base_230320_Shadow3_Sky2.jpg
   # Entre 0 et 1
-  #VOLUME_SOUND_FXS:
-  #  cpu05_02: 1
-  #  cpu05_03: 1
-  #  cpu05_04: 1
-  #  cpu05_05: 1
-  #  cpu05_06: 1
-  #  cpu05_07: 1
-  #  cpu05_08: 1
-  #  cpu05_09: 1
-  #  cpu05_10: 1
-  #  cpu05_11: 1
-  #VOLUME_T2S:
-  #  cpu05_02: 1
-  #  cpu05_03: 1
-  #  cpu05_04: 1
-  #  cpu05_05: 1
-  #  cpu05_06: 1
-  #  cpu05_07: 1
-  #  cpu05_08: 1
-  #  cpu05_09: 1
-  #  cpu05_10: 1
-  #  cpu05_11: 1
+  VOLUME_SOUND_FXS:
+    cpu05_02: 1
+    cpu05_03: 1
+    cpu05_04: 1
+    cpu05_05: 1
+    cpu05_06: 1
+    cpu05_07: 1
+    cpu05_08: 1
+    cpu05_09: 1
+    cpu05_10: 1
+    cpu05_11: 1
+  VOLUME_T2S:
+    cpu05_02: 1
+    cpu05_03: 1
+    cpu05_04: 1
+    cpu05_05: 1
+    cpu05_06: 1
+    cpu05_07: 1
+    cpu05_08: 1
+    cpu05_09: 1
+    cpu05_10: 1
+    cpu05_11: 1
 
 MONITORING:
   REMOTE_MONITORING_URL: 192.168.10.26:3510

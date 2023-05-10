@@ -121,10 +121,10 @@ OMRONCAMERA:
 pm2_config_file: discoverboston.config.js
 
 AUDIO_VOLUME:
-  cpu05_12: 60
-  cpu05_13: 60
-  cpu05_14: 60
-  cpu05_15: 60
+  cpu05_12: 65
+  cpu05_13: 65
+  cpu05_14: 65
+  cpu05_15: 65
   cpu05_16: 60
   cpu05_17: 60
   cpu05_18: 60

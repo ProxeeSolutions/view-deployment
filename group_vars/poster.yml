@@ -52,8 +52,8 @@ MONITORING:
     cpu02_12: N00-05
 
 AUDIO_VOLUME:
-  cpu02_08: 10
-  cpu02_09: 10
-  cpu02_10: 10
-  cpu02_11: 10
-  cpu02_12: 10
+  cpu02_08: 12
+  cpu02_09: 12
+  cpu02_10: 12
+  cpu02_11: 12
+  cpu02_12: 12

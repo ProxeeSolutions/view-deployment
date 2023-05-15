@@ -24,9 +24,9 @@ TACTILECONTROLLER:
   VLC_VOLUME : 100 #[1-100]
 
 AUDIO_VOLUME:
-  cpu02_02: 7
-  cpu02_03: 7
-  cpu02_04: 7
-  cpu02_05: 7
+  cpu02_02: 6
+  cpu02_03: 6
+  cpu02_04: 6
+  cpu02_05: 6
 
 CMS_API_ROOT: http://vbcms.local

@@ -6,6 +6,8 @@ A Collection of Ansible deployement scripts for the *View Boston* installation.
 
 The scripts can be run from any machine (Linux, macOS or Windows under WSL) connected to the network. They will configure and deployed the needed resources on the targets.
 
+Visit https://github.com/ProxeeSolutions/view-deployment for the up-to-date documentation and code.
+
 ## Setup on target machines
 
 A setup script is included to setup the WinRM remoting service and take care of the authentication protocols.

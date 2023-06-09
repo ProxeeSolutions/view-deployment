@@ -57,6 +57,19 @@ ELECTRON:
     cpu05_36: 51 */1 * * *
     cpu05_37: 52 */1 * * *
   CMS_API_ROOT: http://vbcms.local
+  FINALE_KIOSK_SCAN_TICKET_POSITION:
+    cpu05_26: bottom
+    cpu05_27: top
+    cpu05_28: top
+    cpu05_29: top
+    cpu05_30: top
+    cpu05_31: top
+    cpu05_32: bottom
+    cpu05_33: top
+    cpu05_34: top
+    cpu05_35: top
+    cpu05_36: top
+    cpu05_37: top
   # Entre 0 et 1
   VOLUME_SOUND_FXS:
     cpu05_26: 1

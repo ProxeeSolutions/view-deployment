@@ -183,6 +183,21 @@
     - configuration
     - electron
 
+# FINALE_KIOSK_SCAN_TICKET_POSITION=top
+- name: modify finale scan position per hosts
+  community.windows.win_lineinfile:
+    path: C:\Users\VB\AppData\Local\Programs\viewboston\.env
+    regex: '^FINALE_KIOSK_SCAN_TICKET_POSITION='
+    state: present
+    backup: false
+    create: true
+    line: "FINALE_KIOSK_SCAN_TICKET_POSITION={{ ELECTRON.FINALE_KIOSK_SCAN_TICKET_POSITION[inventory_hostname] }}"
+  register: lineresult
+  when: "'finale' in group_names"
+  tags:
+    - configuration
+    - electron
+
 # Configuration for viewer
 # VV_PANORAMA_IMG=VV_Boston_Base_230320_Shadow3_Sky2.jpg
 - name: modify configuration per hosts

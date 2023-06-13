@@ -16,7 +16,7 @@ A setup script is included to setup the WinRM remoting service and take care of 
 
 In Powershell as Administrator:
 
-	SetExecution-Policy Unrestricted
+	Set-ExecutionPolicy Unrestricted
 
 ### Download and run setup script in Powershell
 
